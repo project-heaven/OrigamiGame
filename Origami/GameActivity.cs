@@ -1,33 +1,30 @@
 ﻿using Android.App;
+using Android.Content;
+using Android.Content.PM;
 using Android.OS;
-using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
-
 using Origami.Logics;
 
 namespace Origami
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity
+    [Activity(Label = "GameActivity", Theme = "@style/AppTheme.NoActionBar", ScreenOrientation = ScreenOrientation.Landscape)]
+    public class GameActivity : Activity
     {
-        public static MainActivity Instance;
+        public static GameActivity Instance;
+
         ImageView game_field;
-        LogicCore core;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             Instance = this;
 
             base.OnCreate(savedInstanceState);
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            SetContentView(Resource.Layout.activity_main);
+
+            SetContentView(Resource.Layout.activity_game);
 
             game_field = FindViewById<ImageView>(Resource.Id.game_field);
             game_field.Touch += Touch;
-
-            core = new LogicCore();
-            core.Init();
         }
 
         void Touch(object sender, View.TouchEventArgs e)
@@ -36,25 +33,25 @@ namespace Origami
             float touch_y = e.Event.GetY() / game_field.Height;
 
             Vector2 touch_coords = new Vector2(touch_x, touch_y);
+            var current_level = MainMenuActivity.Instance.core.CurrentLevel();
 
-            switch(e.Event.Action)
+            switch (e.Event.Action)
             {
                 case MotionEventActions.Down:
-                    core.level.TouchStart(touch_coords);
+                    current_level.TouchStart(touch_coords);
                     break;
                 case MotionEventActions.Move:
-                    core.level.TouchMove(touch_coords);
+                    current_level.TouchMove(touch_coords);
                     break;
                 case MotionEventActions.Up:
-                    core.level.TouchEnd(touch_coords);
+                    current_level.TouchEnd(touch_coords);
                     break;
             }
         }
-
-        public void FieldUpdated()
+    
+        public void RedrawField()
         {
-            core.level.RenderField(game_field);
+            MainMenuActivity.Instance.core.CurrentLevel().RenderField(game_field);
         }
-	}
+    }
 }
-

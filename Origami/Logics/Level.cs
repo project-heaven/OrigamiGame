@@ -1,5 +1,4 @@
-﻿using Android.Graphics;
-using Android.Widget;
+﻿using Android.Widget;
 
 using System.Xml;
 
@@ -8,7 +7,6 @@ namespace Origami.Logics
     public class Level
     {
         PaperSheet sheet;
-
         PaperSheet foldedSheet;
 
         public void LoadFromXml(string xml)
@@ -36,14 +34,14 @@ namespace Origami.Logics
 
             foldedSheet = sheet.Fold(fold_line);
 
-            MainActivity.Instance.FieldUpdated();
+            GameActivity.Instance.RedrawField();
         }
 
         public void TouchEnd(Vector2 position_normalized)
         {
             sheet = foldedSheet;
 
-            MainActivity.Instance.FieldUpdated();
+            GameActivity.Instance.RedrawField();
         }
 
         public void RenderField(ImageView image_view)
