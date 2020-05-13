@@ -1,5 +1,4 @@
 ﻿using Android.Graphics;
-using Android.Widget;
 using System.Collections.Generic;
 
 namespace Origami.Logics
@@ -8,29 +7,24 @@ namespace Origami.Logics
     {
         public PaperSheet() {  }
 
-        public void LoadQuad()
+        public void LoadQuad(float padding)
         {
             // Add all-quad
             triangles = new List<Triangle>()
             {
                 new Triangle()
                 {
-                    verts = new Vector2[] { new Vector2(0.9f, 0.9f), new Vector2(0.1f, 0.9f), new Vector2(0.1f, 0.1f) }
+                    verts = new Vector2[] { new Vector2(1.0f - padding, 1.0f - padding), new Vector2(padding, 1.0f - padding), new Vector2(padding, padding) }
                 },
                 new Triangle()
                 {
-                    verts = new Vector2[] { new Vector2(0.9f, 0.9f), new Vector2(0.9f, 0.1f), new Vector2(0.1f, 0.1f) }
+                    verts = new Vector2[] { new Vector2(1.0f - padding, 1.0f - padding), new Vector2(1.0f - padding, padding), new Vector2(padding, padding) }
                 }
             };
         }
 
         // Coordinates stored in normalized coordinates [0..1] origin - left top
         List<Triangle> triangles = new List<Triangle>();
-
-        public List<Triangle> GetTriangles()
-        {
-            return triangles;
-        }
 
         public Vector2 GetClosestCorner(Vector2 point)
         {
@@ -71,14 +65,8 @@ namespace Origami.Logics
             return new_paper;
         }
 
-        public void Render(ImageView image_view)
+        public void Render(Canvas canvas)
         {
-            int image_width = image_view.Width;
-            int image_height = image_view.Height;
-
-            Bitmap bmp = Bitmap.CreateBitmap(image_width, image_height, Bitmap.Config.Argb8888);
-            var canvas = new Canvas(bmp);
-
             Paint fill_paint = new Paint();
             fill_paint.Color = new Color(10, 40, 160, 50);
             fill_paint.SetStyle(Paint.Style.Fill);
@@ -90,8 +78,6 @@ namespace Origami.Logics
 
             foreach (var triangle in triangles)
                 RenderTriangle(canvas, triangle, fill_paint);
-
-            image_view.SetImageBitmap(bmp);
         }
 
         void RenderTriangle(Canvas canvas, Triangle triangle, Paint paint)
@@ -108,6 +94,11 @@ namespace Origami.Logics
             path.Close();
 
             canvas.DrawPath(path, paint);
+        }
+    
+        public float CorrectPercent(LineSegment[] result)
+        {
+            return 1.0f;
         }
     }
 }

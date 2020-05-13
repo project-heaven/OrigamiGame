@@ -1,10 +1,11 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.Content.PM;
+using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Origami.Logics;
+using Xamarin.Essentials;
 
 namespace Origami
 {
@@ -25,6 +26,18 @@ namespace Origami
 
             game_field = FindViewById<ImageView>(Resource.Id.game_field);
             game_field.Touch += Touch;
+
+            int screen_height = (int)DeviceDisplay.MainDisplayInfo.Height;
+            game_field.SetImageBitmap(Bitmap.CreateBitmap(screen_height, screen_height, Bitmap.Config.Argb8888));
+
+            game_field.Post(new System.Action(() =>
+                MainMenuActivity.Instance.core.CurrentLevel().RenderField(game_field)));
+
+            FindViewById<ImageButton>(Resource.Id.back_button).Click += (s, e) => StartActivity(typeof(LevelSelectActivity));
+
+            //FindViewById<ImageButton>(Resource.Id.help_button).Click += (s, e) => ;
+            FindViewById<ImageButton>(Resource.Id.undo_button).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().Undo();
+            FindViewById<ImageButton>(Resource.Id.reset_button).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().Reset();
         }
 
         void Touch(object sender, View.TouchEventArgs e)

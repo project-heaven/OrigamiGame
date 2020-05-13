@@ -1,16 +1,12 @@
-﻿namespace Origami.Logics
+﻿using System.Xml;
+
+namespace Origami.Logics
 {
     public class LogicCore
     {
         public Level[] levels;
 
-        public LogicCore()
-        {
-            levels = new Level[1];
-
-            levels[0] = new Level();
-            levels[0].LoadFromXml("");
-        }
+        public LogicCore() { }
 
         public Level CurrentLevel()
         {
@@ -19,7 +15,14 @@
 
         public void LoadLevels(string xml)
         {
-            
+            XmlDocument levels_doc = new XmlDocument();
+            levels_doc.LoadXml(xml);
+
+            levels = new Level[levels_doc.DocumentElement.ChildNodes.Count];
+
+            int i = 0;
+            foreach (XmlElement level in levels_doc.DocumentElement)
+                levels[i++] = new Level(level);
         }
     }
 }

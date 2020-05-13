@@ -1,15 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="1000px"
-        android:layout_height="1000px"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:id="@+id/game_field" 
-    />
+    android:layout_height="match_parent"
+    android:gravity="fill_horizontal">
 
+    <LinearLayout
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ImageButton
+            android:src="@drawable/back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/back_button" 
+            android:background="@android:color/white"
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/game_field_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:id="@+id/game_field"
+            android:src="@android:drawable/ic_menu_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:id="@+id/linearLayout2">
+
+        <ImageButton
+            android:id="@+id/help_button" 
+            android:src="@drawable/help"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="15dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/white"
+        />
+
+        <ImageButton
+            android:id="@+id/undo_button" 
+            android:src="@drawable/undo"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="15dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/white"
+        />
+
+        <ImageButton
+            android:id="@+id/reset_button" 
+            android:src="@drawable/reset"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="15dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/white"
+        />
+
+    </LinearLayout>
 </LinearLayout>

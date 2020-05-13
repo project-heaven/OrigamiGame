@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Util;
 using Android.Widget;
 
 namespace Origami
@@ -9,13 +8,14 @@ namespace Origami
     [Activity(Label = "LevelSelectActivity", Theme = "@style/AppTheme.NoActionBar", ScreenOrientation = ScreenOrientation.Landscape)]
     public class LevelSelectActivity : Activity
     {
+        public static LevelSelectActivity Instance;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            Instance = this;
+
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.activity_levelselect);
-
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_levelselect);
 
             var level_grid = FindViewById<GridView>(Resource.Id.level_grid);
