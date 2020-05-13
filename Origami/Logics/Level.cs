@@ -6,6 +6,8 @@ namespace Origami.Logics
 {
     public class Level
     {
+        public static Color FoldLineColor;
+
         PaperSheet FoldedSheet {
             get { return foldedSheet; }
             set 
@@ -111,7 +113,7 @@ namespace Origami.Logics
 
         public void TouchStart(Vector2 position_normalized)
         {
-            fold_start_pos = fold_stages[last_fold_id].GetClosestCorner(position_normalized);
+            fold_start_pos = position_normalized;
         }
 
         public void TouchMove(Vector2 position_normalized)
@@ -134,6 +136,9 @@ namespace Origami.Logics
             }
         }
 
+        // For GetCorrectPercent purpose.
+        Bitmap last_bitmap;
+
         public void RenderField(ImageView image_view)
         {
             Bitmap bmp = Bitmap.CreateBitmap(image_view.Width, image_view.Height, Bitmap.Config.Argb8888);
@@ -147,6 +152,7 @@ namespace Origami.Logics
                 RenderFoldLine(canvas);
 
             image_view.SetImageBitmap(bmp);
+            last_bitmap = bmp;
         }
 
         void RenderResultOutline(Canvas canvas)
@@ -155,9 +161,11 @@ namespace Origami.Logics
             float height = canvas.Height;
 
             Paint paint = new Paint();
-            paint.Color = new Color(160, 40, 10, 255);
+            paint.Color = FoldLineColor;
             paint.SetStyle(Paint.Style.Stroke);
+            paint.StrokeCap = Paint.Cap.Round;
             paint.StrokeWidth = 5;
+            paint.SetPathEffect(new DashPathEffect(new float[] { 10, 10 }, 0));
 
             foreach (var line in resultOutline)
                 canvas.DrawLine(line.start.x * width, line.start.y * height, line.end.x * width, line.end.y * height, paint);

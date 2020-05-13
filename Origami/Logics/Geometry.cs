@@ -3,50 +3,6 @@ using System.Collections.Generic;
 
 namespace Origami.Logics
 {
-    public static class Common
-    {
-        public static List<int> ConvexHull(List<Vector2> points)
-        {
-            // Jarvis algorithm.
-            int bottomest_id = 0;
-            float bottom_y = float.PositiveInfinity;
-            for(int i = 0; i < points.Count; i++)
-                if(points[i].y < bottom_y)
-                {
-                    bottom_y = points[i].y;
-                    bottomest_id = i;
-                }
-
-            List<int> hull = new List<int>() { bottomest_id };
-
-            Vector2 last_edge_direction = new Vector2(1, 0);
-            while(true)
-            {
-                // Find smallest angle
-                float dot_max = float.NegativeInfinity;
-                int dot_max_point_id = 0;
-                for(int i = 0; i < points.Count; i++)
-                {
-                    if (i == hull[hull.Count - 1])
-                        continue;
-
-                    float dot = (points[i] - points[hull[hull.Count - 1]]).Normalized().Dot(last_edge_direction);
-                    if(dot > dot_max)
-                    {
-                        dot_max = dot;
-                        dot_max_point_id = i;
-                    }
-                }
-
-                if (dot_max_point_id == hull[0])
-                    return hull;
-
-                last_edge_direction = points[dot_max_point_id] - points[hull[hull.Count - 1]];
-                hull.Add(dot_max_point_id);
-            }
-        }
-    }
-
     public struct Vector2
     {
         public float x;
@@ -93,80 +49,80 @@ namespace Origami.Logics
             switch (left_side_points.Count)
             {
                 case 0: {
-                        triangles.Add(new Triangle() { verts = (Vector2[])verts.Clone() });
+                    triangles.Add(new Triangle() { verts = (Vector2[])verts.Clone() });
 
-                        break;
-                    }
+                    break;
+                }
                 case 1: {
-                        // When triangle separated by line there are triangle and quadrilateral in result.
-                        FloatLine[] intersected_sides = new FloatLine[]
-                        {
-                            new FloatLine(left_side_points[0], left_side_points[0] - right_side_points[0]),
-                            new FloatLine(left_side_points[0], left_side_points[0] - right_side_points[1])
-                        };
-                        Vector2[] line_intersections = new Vector2[2];
-                        for (int i = 0; i < 2; i++)
-                            line_intersections[i] = line.LineIntersection(intersected_sides[i]);
+                    // When triangle separated by line there are triangle and quadrilateral in result.
+                    FloatLine[] intersected_sides = new FloatLine[]
+                    {
+                        new FloatLine(left_side_points[0], left_side_points[0] - right_side_points[0]),
+                        new FloatLine(left_side_points[0], left_side_points[0] - right_side_points[1])
+                    };
+                    Vector2[] line_intersections = new Vector2[2];
+                    for (int i = 0; i < 2; i++)
+                        line_intersections[i] = line.LineIntersection(intersected_sides[i]);
 
-                        // Add segment.
-                        var new_segment = new LineSegment {
-                            start = line_intersections[0],
-                            end = line_intersections[1]
-                        };
+                    // Add segment.
+                    var new_segment = new LineSegment {
+                        start = line_intersections[0],
+                        end = line_intersections[1]
+                    };
 
-                        // Generate triangle.
-                        Triangle new_triangle = new Triangle();
-                        // Mirror one triangle point because it lies to left.
-                        new_triangle.verts = new Vector2[] { left_side_points[0], line_intersections[0], line_intersections[1] };
-                        new_triangle.verts[0] = line.MirrorPoint(new_triangle.verts[0]);
-                        triangles.Add(new_triangle);
-                        // Generate quadrilateral.
-                        Vector2[] quadrilateral_points = new Vector2[4];
-                        quadrilateral_points[0] = right_side_points[0];
-                        quadrilateral_points[1] = right_side_points[1];
-                        quadrilateral_points[2] = line_intersections[1];
-                        quadrilateral_points[3] = line_intersections[0];
-                        var quadrilateral_triangles = TriangulateQuadrilateral(quadrilateral_points);
-                        triangles.AddRange(quadrilateral_triangles);
+                    // Generate triangle.
+                    Triangle new_triangle = new Triangle();
+                    // Mirror one triangle point because it lies to left.
+                    new_triangle.verts = new Vector2[] { left_side_points[0], line_intersections[0], line_intersections[1] };
+                    new_triangle.verts[0] = line.MirrorPoint(new_triangle.verts[0]);
+                    triangles.Add(new_triangle);
+                    // Generate quadrilateral.
+                    Vector2[] quadrilateral_points = new Vector2[4];
+                    quadrilateral_points[0] = right_side_points[0];
+                    quadrilateral_points[1] = right_side_points[1];
+                    quadrilateral_points[2] = line_intersections[1];
+                    quadrilateral_points[3] = line_intersections[0];
+                    var quadrilateral_triangles = TriangulateQuadrilateral(quadrilateral_points);
+                    triangles.AddRange(quadrilateral_triangles);
 
-                        break;
-                    }
+                    break;
+                }
                 case 2: {
-                        // When triangle separated by line there are triangle and quadrilateral in result.
-                        FloatLine[] intersected_sides = new FloatLine[]
-                        {
-                            new FloatLine(right_side_points[0], right_side_points[0] - left_side_points[0]),
-                            new FloatLine(right_side_points[0], right_side_points[0] - left_side_points[1])
-                        };
-                        Vector2[] line_intersections = new Vector2[2];
-                        for (int i = 0; i < 2; i++)
-                            line_intersections[i] = line.LineIntersection(intersected_sides[i]);
-                        // Generate triangle.
-                        Triangle new_triangle = new Triangle();
-                        new_triangle.verts = new Vector2[] { right_side_points[0], line_intersections[0], line_intersections[1] };
-                        triangles.Add(new_triangle);
-                        // Generate quadrilateral and mirror two points because they lie to left.
-                        Vector2[] quadrilateral_points = new Vector2[4];
+                    // When triangle separated by line there are triangle and quadrilateral in result.
+                    FloatLine[] intersected_sides = new FloatLine[]
+                    {
+                        new FloatLine(right_side_points[0], right_side_points[0] - left_side_points[0]),
+                        new FloatLine(right_side_points[0], right_side_points[0] - left_side_points[1])
+                    };
+                    Vector2[] line_intersections = new Vector2[2];
+                    for (int i = 0; i < 2; i++)
+                        line_intersections[i] = line.LineIntersection(intersected_sides[i]);
+                    // Generate triangle.
+                    Triangle new_triangle = new Triangle();
+                    new_triangle.verts = new Vector2[] { right_side_points[0], line_intersections[0], line_intersections[1] };
+                    triangles.Add(new_triangle);
+                    // Generate quadrilateral and mirror two points because they lie to left.
+                    Vector2[] quadrilateral_points = new Vector2[4];
 
-                        quadrilateral_points[0] = line.MirrorPoint(left_side_points[1]);
-                        quadrilateral_points[1] = line.MirrorPoint(left_side_points[0]);
-                        quadrilateral_points[2] = line_intersections[0];
-                        quadrilateral_points[3] = line_intersections[1];
-                        var quadrilateral_triangles = TriangulateQuadrilateral(quadrilateral_points);
+                    quadrilateral_points[0] = line.MirrorPoint(left_side_points[1]);
+                    quadrilateral_points[1] = line.MirrorPoint(left_side_points[0]);
+                    quadrilateral_points[2] = line_intersections[0];
+                    quadrilateral_points[3] = line_intersections[1];
+                    var quadrilateral_triangles = TriangulateQuadrilateral(quadrilateral_points);
 
-                        triangles.AddRange(quadrilateral_triangles);
+                    triangles.AddRange(quadrilateral_triangles);
 
-                        break;
-                    }
+                    break;
+                }
                 case 3: {
-                        Triangle new_triangle = new Triangle() { verts = (Vector2[])verts.Clone() };
-                        for (int i = 0; i < 3; i++)
-                            new_triangle.verts[i] = line.MirrorPoint(new_triangle.verts[i]);
+                    Triangle new_triangle = new Triangle() { verts = (Vector2[])verts.Clone() };
+                    for (int i = 0; i < 3; i++)
+                        new_triangle.verts[i] = line.MirrorPoint(new_triangle.verts[i]);
 
-                        triangles.Add(new_triangle);
+                    triangles.Add(new_triangle);
 
-                        break;
-                    }
+                    break;
+                }
             }
 
             return triangles;
@@ -188,6 +144,12 @@ namespace Origami.Logics
     {
         public Vector2 passThrough;
         public Vector2 angle;
+
+        public FloatLine(Vector2 pass_through, Vector2 angle)
+        {
+            passThrough = pass_through;
+            this.angle = angle;
+        }
 
         public Vector2 LineIntersection(FloatLine line)
         {
@@ -223,12 +185,6 @@ namespace Origami.Logics
             intersection.x = (t2 - t1) / (k1 - k2);
             intersection.y = k1 * intersection.x + t1;
             return intersection;
-        }
-
-        public FloatLine(Vector2 pass_through, Vector2 angle)
-        {
-            passThrough = pass_through;
-            this.angle = angle;
         }
 
         // SIGNED DISTANCE TO LINE:
@@ -281,6 +237,11 @@ namespace Origami.Logics
         {
             this.start = start;
             this.end = end;
+        }
+
+        public FloatLine GetLine()
+        {
+            return new FloatLine(start, end - start);
         }
 
         public List<LineSegment> Fold(FloatLine line)

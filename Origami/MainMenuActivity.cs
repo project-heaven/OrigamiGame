@@ -30,6 +30,11 @@ namespace Origami
             core = new LogicCore();
             string levels_xml = new StreamReader(Assets.Open("levels.xml")).ReadToEnd();
             core.LoadLevels(levels_xml);
+
+            Level.FoldLineColor = Resources.GetColor(Resource.Color.resultOutlineColor);
+
+            PaperSheet.Color = Resources.GetColor(Resource.Color.sheetColor);
+            PaperSheet.Color.A = 100;
         }
 
         public LogicCore core;

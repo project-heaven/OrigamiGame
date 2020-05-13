@@ -1,10 +1,13 @@
 ﻿using Android.Graphics;
+using Java.Lang;
 using System.Collections.Generic;
 
 namespace Origami.Logics
 {
     public class PaperSheet
     {
+        public static Color Color;
+
         public PaperSheet() {  }
 
         public void LoadQuad(float padding)
@@ -26,34 +29,6 @@ namespace Origami.Logics
         // Coordinates stored in normalized coordinates [0..1] origin - left top
         List<Triangle> triangles = new List<Triangle>();
 
-        public Vector2 GetClosestCorner(Vector2 point)
-        {
-            List<Vector2> all_verts = new List<Vector2>(triangles.Count * 3);
-            foreach(var triangle in triangles)
-            {
-                all_verts.Add(triangle.verts[0]);
-                all_verts.Add(triangle.verts[1]);
-                all_verts.Add(triangle.verts[2]);
-            }
-
-            var convex_hull_ids = Common.ConvexHull(all_verts);
-
-            float min_sqr_dist = float.PositiveInfinity;
-            Vector2 corner = new Vector2();
-
-            foreach (var id in convex_hull_ids)
-            {
-                float sqr_dist = (all_verts[id] - point).LengthSqr();
-                if(sqr_dist < min_sqr_dist)
-                {
-                    min_sqr_dist = sqr_dist;
-                    corner = all_verts[id];
-                }
-            }
-
-            return corner;
-        }
-
         // Folds all triangles from left side of line to right
         public PaperSheet Fold(FloatLine line)
         {
@@ -68,13 +43,8 @@ namespace Origami.Logics
         public void Render(Canvas canvas)
         {
             Paint fill_paint = new Paint();
-            fill_paint.Color = new Color(10, 40, 160, 50);
+            fill_paint.Color = Color;
             fill_paint.SetStyle(Paint.Style.Fill);
-
-            Paint stroke_paint = new Paint();
-            stroke_paint.Color = new Color(160, 40, 10, 255);
-            stroke_paint.SetStyle(Paint.Style.Stroke);
-            stroke_paint.StrokeWidth = 7;
 
             foreach (var triangle in triangles)
                 RenderTriangle(canvas, triangle, fill_paint);
@@ -96,9 +66,34 @@ namespace Origami.Logics
             canvas.DrawPath(path, paint);
         }
     
-        public float CorrectPercent(LineSegment[] result)
+        // Bruteforce.
+        public float GetCorrectPercent(Bitmap bitmap, LineSegment[] resultOutline)
         {
-            return 1.0f;
+            int correct = 0;
+            int incorrect = 0;
+
+            for(float x = 0; x < 1; x += 0.01f)
+                for(float y = 0; y < 1; y += 0.01f)
+                {
+                    bool void_pixel = bitmap.GetPixel((int)(x * bitmap.Width), (int)(y * bitmap.Height)) == 0;
+                    bool should_be_inside = PointInsideOutline(new Vector2(x, y), resultOutline);
+
+                    if (void_pixel ^ should_be_inside)
+                        correct++;
+                    else
+                        incorrect++;
+                }
+
+            return (float)correct / (correct + incorrect);
+        }
+
+        bool PointInsideOutline(Vector2 point, LineSegment[] outline)
+        {
+            foreach (var outline_segment in outline)
+                if (outline_segment.GetLine().GetPointSide(point) == PointSide.LEFT)
+                    return false;
+
+            return true;
         }
     }
 }
