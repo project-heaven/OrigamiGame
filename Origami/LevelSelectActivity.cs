@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 
 namespace Origami
@@ -13,6 +14,7 @@ namespace Origami
         protected override void OnCreate(Bundle savedInstanceState)
         {
             Instance = this;
+            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
 
             base.OnCreate(savedInstanceState);
 
@@ -20,10 +22,13 @@ namespace Origami
 
             var level_grid = FindViewById<GridView>(Resource.Id.level_grid);
             LevelsGridViewAdapter.button_count = 30;
-            LevelsGridViewAdapter.ButtonClick += LevelSelected;
             level_grid.Adapter = new LevelsGridViewAdapter(this);
 
-            FindViewById<Button>(Resource.Id.back_button).Click 
+            level_grid.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args) {
+                LevelSelected(args.Position);
+            };
+
+            FindViewById<ImageButton>(Resource.Id.back_button).Click 
             += (s, e) => { Back(); };
         }
 
@@ -34,7 +39,8 @@ namespace Origami
 
         void LevelSelected(int level)
         {
-            StartActivity(typeof(GameActivity));
+            if(MainMenuActivity.Instance.core.SetLevel(level))
+                StartActivity(typeof(GameActivity));
         }
     }
 }

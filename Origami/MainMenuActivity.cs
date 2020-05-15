@@ -1,10 +1,13 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Preferences;
+using Android.Views;
 using Android.Widget;
 
 using Origami.Logics;
 using System.IO;
+using Xamarin.Essentials;
 
 namespace Origami
 {
@@ -15,12 +18,18 @@ namespace Origami
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
+
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_mainmenu);
 
-            FindViewById<Button>(Resource.Id.start_button).Click += (s, e) => { StartGame(); };
+            FindViewById<ImageButton>(Resource.Id.start_button).Click += (s, e) => { StartGame(); };
+
+            // DEBUG
+            FindViewById<Button>(Resource.Id.dbg_reset_button).Click += (s, e) => { Preferences.Clear(); };
+            
 
             if (Instance != null)
                 return;
@@ -29,7 +38,7 @@ namespace Origami
 
             core = new LogicCore();
             string levels_xml = new StreamReader(Assets.Open("levels.xml")).ReadToEnd();
-            core.LoadLevels(levels_xml);
+            core.Init(levels_xml);
 
             Level.FoldLineColor = Resources.GetColor(Resource.Color.resultOutlineColor);
 

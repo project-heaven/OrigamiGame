@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,8 +22,9 @@
             android:layout_height="60dp"
             android:padding="5dp"
             android:scaleType="centerCrop"
-            android:id="@+id/back_button" 
+            android:id="@+id/back_button"
             android:background="@color/buttonBackgroundColor"
+            android:tint="@color/buttonColor"         
         />
     </LinearLayout>
 
@@ -53,13 +55,14 @@
         android:id="@+id/linearLayout2">
 
         <ImageButton
-            android:id="@+id/help_button" 
+            android:id="@+id/help_button"
             android:src="@drawable/help"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
             android:scaleType="centerCrop"
             android:background="@color/buttonBackgroundColor"
+            android:tint="@color/buttonColor"
         />
 
         <LinearLayout
@@ -67,28 +70,30 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical">
-            
+
             <ImageButton
-            android:id="@+id/undo_button" 
-            android:src="@drawable/undo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+                android:id="@+id/undo_button"
+                android:src="@drawable/undo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:padding="5dp"
-            android:scaleType="centerCrop"
-            android:background="@color/buttonBackgroundColor"
+                android:scaleType="centerCrop"
+                android:background="@color/buttonBackgroundColor"
+                android:tint="@color/buttonColor"
             />
         </LinearLayout>
 
-        
+
 
         <ImageButton
-            android:id="@+id/reset_button" 
+            android:id="@+id/reset_button"
             android:src="@drawable/reset"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
             android:scaleType="centerCrop"
             android:background="@color/buttonBackgroundColor"
+            android:tint="@color/buttonColor"
         />
 
     </LinearLayout>

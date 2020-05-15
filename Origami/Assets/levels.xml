@@ -13,6 +13,45 @@
     </result>
   </level>
 
+  <level type ="result">
+    <folds>
+      <fold x0="0.5" y0="0.0" x1="0.5" y1="1.0"/>
+      <fold x0="0.0" y0="0.5" x1="1.0" y1="0.5"/>
+    </folds>
+    <result>
+      <point x="0.0" y="1.0"/>
+      <point x="0.0" y="0.5"/>
+      <point x="0.5" y="0.5"/>
+      <point x="0.5" y="1.0"/>
+    </result>
+  </level>
+
+  <level type ="result">
+    <folds>
+      <fold x0="0.5" y0="0.0" x1="0.5" y1="1.0"/>
+      <fold x0="0.0" y0="0.5" x1="1.0" y1="0.5"/>
+    </folds>
+    <result>
+      <point x="0.0" y="1.0"/>
+      <point x="0.0" y="0.5"/>
+      <point x="0.5" y="0.5"/>
+      <point x="0.5" y="1.0"/>
+    </result>
+  </level>
+
+  <level type ="result">
+    <folds>
+      <fold x0="0.5" y0="0.0" x1="0.5" y1="1.0"/>
+      <fold x0="0.0" y0="0.5" x1="1.0" y1="0.5"/>
+    </folds>
+    <result>
+      <point x="0.0" y="1.0"/>
+      <point x="0.0" y="0.5"/>
+      <point x="0.5" y="0.5"/>
+      <point x="0.5" y="1.0"/>
+    </result>
+  </level>
+
   <level type ="sequence">
     <folds>
       <fold x0="0.5" y0="0.0" x1="0.5" y1="1.0"/>

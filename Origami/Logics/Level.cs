@@ -8,6 +8,14 @@ namespace Origami.Logics
     {
         public static Color FoldLineColor;
 
+        public struct LevelRating
+        {
+            public bool unlocked;
+            public int stars;
+        }
+
+        public LevelRating rating;
+
         PaperSheet FoldedSheet {
             get { return foldedSheet; }
             set 
@@ -131,9 +139,7 @@ namespace Origami.Logics
             fold_stages[++last_fold_id] = FoldedSheet;
 
             if(last_fold_id == fold_stages.Length - 1)
-            {
-                // reached last fold
-            }
+                MainMenuActivity.Instance.core.CurrentLevelCompleted();
         }
 
         // For GetCorrectPercent purpose.
@@ -174,6 +180,11 @@ namespace Origami.Logics
         void RenderFoldLine(Canvas canvas)
         {
 
+        }
+
+        public float GetCorrectPercent()
+        {
+            return fold_stages[last_fold_id].GetCorrectPercent(last_bitmap, resultOutline);
         }
     }
 }

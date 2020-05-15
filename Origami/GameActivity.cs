@@ -1,10 +1,12 @@
 ﻿using Android.App;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Origami.Logics;
+using System.Runtime.CompilerServices;
 using Xamarin.Essentials;
 
 namespace Origami
@@ -19,6 +21,7 @@ namespace Origami
         protected override void OnCreate(Bundle savedInstanceState)
         {
             Instance = this;
+            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
 
             base.OnCreate(savedInstanceState);
 
@@ -37,7 +40,56 @@ namespace Origami
 
             //FindViewById<ImageButton>(Resource.Id.help_button).Click += (s, e) => ;
             FindViewById<ImageButton>(Resource.Id.undo_button).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().Undo();
-            FindViewById<ImageButton>(Resource.Id.reset_button).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().Reset();
+            FindViewById<ImageButton>(Resource.Id.reset_button).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().Reset();   
+        }
+
+        View lvl_complete_view;
+
+        public void LevelComplete(int stars)
+        {
+            lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.level_end_modal, null);
+
+            var star_0 = lvl_complete_view.FindViewById<ImageView>(Resource.Id.star0);
+            var star_1 = lvl_complete_view.FindViewById<ImageView>(Resource.Id.star1);
+            var star_2 = lvl_complete_view.FindViewById<ImageView>(Resource.Id.star2);
+
+            if (stars >= 1)
+                star_0.SetImageResource(Resource.Drawable.star_filled);
+            else
+                star_0.SetImageResource(Resource.Drawable.star);
+
+            if (stars >= 2)
+                star_1.SetImageResource(Resource.Drawable.star_filled);
+            else
+                star_1.SetImageResource(Resource.Drawable.star);
+
+            if (stars >= 3)
+                star_2.SetImageResource(Resource.Drawable.star_filled);
+            else
+                star_2.SetImageResource(Resource.Drawable.star);
+
+            lvl_complete_view.FindViewById<ImageButton>(Resource.Id.back_button).Click += (s, e) => 
+            {
+                ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
+                StartActivity(typeof(LevelSelectActivity));
+                MainMenuActivity.Instance.core.CurrentLevel().Reset();
+            };
+
+            lvl_complete_view.FindViewById<ImageButton>(Resource.Id.reset_button).Click += (s, e) =>
+            {
+                ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
+                MainMenuActivity.Instance.core.CurrentLevel().Reset();
+            };
+
+            lvl_complete_view.FindViewById<ImageButton>(Resource.Id.next_button).Click += (s, e) =>
+            {
+                ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
+                MainMenuActivity.Instance.core.NextLevel();
+                MainMenuActivity.Instance.core.CurrentLevel().Reset();
+            };
+
+            var display_info = DeviceDisplay.MainDisplayInfo;
+            AddContentView(lvl_complete_view, new ViewGroup.LayoutParams((int)display_info.Width, (int)display_info.Height));
         }
 
         void Touch(object sender, View.TouchEventArgs e)

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/buttonBackgroundColor"
+    android:gravity="center"
+    >
+
+    <AbsoluteLayout 
+        android:layout_width="90dp"
+        android:layout_height="90dp">
+
+    <TextView
+        android:id="@+id/level_number"
+        android:text="LEVEL 0"
+        android:gravity="center_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_y="7dp"
+        android:scaleType="centerCrop"
+        android:textColor="@color/buttonColor"         
+    />
+
+    <ImageView
+        android:id="@+id/star0"
+        android:src="@drawable/star"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_x="9.5dp"
+        android:layout_y="40dp"
+        android:scaleType="centerCrop"
+        android:tint="@color/buttonColor"         
+    /> 
+        
+    <ImageView
+        android:id="@+id/star1"
+        android:src="@drawable/star"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_x= "34.5dp"
+        android:layout_y="34dp"
+        android:scaleType="centerCrop"
+        android:tint="@color/buttonColor"         
+    />   
+
+    <ImageView
+        android:id="@+id/star2"
+        android:src="@drawable/star"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_x="59.5dp"
+        android:layout_y="40dp"
+        android:scaleType="centerCrop"
+        android:tint="@color/buttonColor"         
+    />   
+
+    <ImageView
+        android:id="@+id/lock"
+        android:src="@drawable/lock"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_x="30dp"
+        android:layout_y= "50dp"
+        android:scaleType="centerCrop"
+        android:tint="@color/buttonColor"         
+    />  
+
+    </AbsoluteLayout>
+</LinearLayout>
