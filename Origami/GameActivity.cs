@@ -1,12 +1,10 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.Content.Res;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Origami.Logics;
-using System.Runtime.CompilerServices;
 using Xamarin.Essentials;
 
 namespace Origami
@@ -34,20 +32,76 @@ namespace Origami
             game_field.SetImageBitmap(Bitmap.CreateBitmap(screen_height, screen_height, Bitmap.Config.Argb8888));
 
             game_field.Post(new System.Action(() =>
-                MainMenuActivity.Instance.core.CurrentLevel().RenderField(game_field)));
+                MainMenuActivity.Instance.core.CurrentLevel().ResetAndRefresh()));
 
             FindViewById<ImageButton>(Resource.Id.back_button).Click += (s, e) => StartActivity(typeof(LevelSelectActivity));
 
-            //FindViewById<ImageButton>(Resource.Id.help_button).Click += (s, e) => ;
+            FindViewById<ImageButton>(Resource.Id.help_button).Click += (s, e) => ShowHelpModal();
             FindViewById<ImageButton>(Resource.Id.undo_button).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().Undo();
-            FindViewById<ImageButton>(Resource.Id.reset_button).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().Reset();   
+            FindViewById<ImageButton>(Resource.Id.reset_button).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().ResetAndRefresh();
         }
 
-        View lvl_complete_view;
+        public const int DEFAULT_HINTS = 5;
 
-        public void LevelComplete(int stars)
+        public void ShowHelpModal()
         {
-            lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.level_end_modal, null);
+            SetButtonsEnabled(false);
+
+            View help_modal_view = LayoutInflater.Inflate(Resource.Layout.help_modal, null);
+
+            int hints = Preferences.Get("hints", DEFAULT_HINTS);
+            help_modal_view.FindViewById<TextView>(Resource.Id.hints_remained).Text = $"{hints} REMAINED";
+            if (hints == 0)
+                help_modal_view.FindViewById<ImageButton>(Resource.Id.help_button).Enabled = false;
+
+            help_modal_view.FindViewById<ImageButton>(Resource.Id.back_button).Click += (s, e) =>
+            {
+                SetButtonsEnabled(true);
+                ((ViewGroup)help_modal_view.Parent).RemoveView(help_modal_view);
+            };
+
+            help_modal_view.FindViewById<ImageButton>(Resource.Id.help_button).Click += (s, e) =>
+            {
+                Preferences.Set("hints", Preferences.Get("hints", DEFAULT_HINTS) - 1);
+
+                MainMenuActivity.Instance.core.CurrentLevel().Help();
+                SetButtonsEnabled(true);
+                ((ViewGroup)help_modal_view.Parent).RemoveView(help_modal_view);
+            };
+
+            var display_info = DeviceDisplay.MainDisplayInfo;
+            AddContentView(help_modal_view, new ViewGroup.LayoutParams((int)display_info.Width, (int)display_info.Height));
+        } 
+
+        public void LevelFailed()
+        {
+            SetButtonsEnabled(false);
+
+            View lvl_fail_view = LayoutInflater.Inflate(Resource.Layout.level_lose_modal, null);
+
+            lvl_fail_view.FindViewById<ImageButton>(Resource.Id.back_button).Click += (s, e) =>
+            {
+                SetButtonsEnabled(true);
+                ((ViewGroup)lvl_fail_view.Parent).RemoveView(lvl_fail_view);
+                StartActivity(typeof(LevelSelectActivity));
+            };
+
+            lvl_fail_view.FindViewById<ImageButton>(Resource.Id.reset_button).Click += (s, e) =>
+            {
+                SetButtonsEnabled(true);
+                ((ViewGroup)lvl_fail_view.Parent).RemoveView(lvl_fail_view);
+                MainMenuActivity.Instance.core.CurrentLevel().ResetAndRefresh();
+            };
+
+            var display_info = DeviceDisplay.MainDisplayInfo;
+            AddContentView(lvl_fail_view, new ViewGroup.LayoutParams((int)display_info.Width, (int)display_info.Height));
+        }
+
+        public void LevelCompleted(int stars)
+        {
+            SetButtonsEnabled(false);
+
+            View lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.level_end_modal, null);
 
             var star_0 = lvl_complete_view.FindViewById<ImageView>(Resource.Id.star0);
             var star_1 = lvl_complete_view.FindViewById<ImageView>(Resource.Id.star1);
@@ -70,26 +124,42 @@ namespace Origami
 
             lvl_complete_view.FindViewById<ImageButton>(Resource.Id.back_button).Click += (s, e) => 
             {
+                SetButtonsEnabled(true);
                 ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
                 StartActivity(typeof(LevelSelectActivity));
-                MainMenuActivity.Instance.core.CurrentLevel().Reset();
             };
 
             lvl_complete_view.FindViewById<ImageButton>(Resource.Id.reset_button).Click += (s, e) =>
             {
+                SetButtonsEnabled(true);
                 ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
-                MainMenuActivity.Instance.core.CurrentLevel().Reset();
+                MainMenuActivity.Instance.core.CurrentLevel().ResetAndRefresh();
             };
 
             lvl_complete_view.FindViewById<ImageButton>(Resource.Id.next_button).Click += (s, e) =>
             {
+                bool is_last_level = !MainMenuActivity.Instance.core.NextLevel();
+
+                if (is_last_level)
+                    return;
+
+                SetButtonsEnabled(true);
                 ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
-                MainMenuActivity.Instance.core.NextLevel();
-                MainMenuActivity.Instance.core.CurrentLevel().Reset();
             };
 
             var display_info = DeviceDisplay.MainDisplayInfo;
             AddContentView(lvl_complete_view, new ViewGroup.LayoutParams((int)display_info.Width, (int)display_info.Height));
+        }
+
+        void SetButtonsEnabled(bool state)
+        {
+            Level.FoldsDenied = !state;
+
+            FindViewById<ImageButton>(Resource.Id.help_button).Enabled = state;
+            FindViewById<ImageButton>(Resource.Id.undo_button).Enabled = state;
+            FindViewById<ImageButton>(Resource.Id.reset_button).Enabled = state;
+
+            FindViewById<ImageButton>(Resource.Id.back_button).Enabled = state;
         }
 
         void Touch(object sender, View.TouchEventArgs e)
@@ -114,6 +184,21 @@ namespace Origami
             }
         }
     
+        public void SetScore(int percent)
+        {
+            FindViewById<TextView>(Resource.Id.score).Text = $"{percent}%";
+        }
+
+        public void SetFolds(int folds)
+        {
+            FindViewById<TextView>(Resource.Id.folds).Text = folds.ToString();
+        }
+
+        public void SetFoldLimit(int limit)
+        {
+            FindViewById<TextView>(Resource.Id.fold_limit).Text = limit.ToString();
+        }
+
         public void RedrawField()
         {
             MainMenuActivity.Instance.core.CurrentLevel().RenderField(game_field);

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,10 +11,10 @@
 
     <LinearLayout
         android:paddingTop="10dp"
-        android:layout_width="70dp"
+        android:paddingLeft="10dp"
+        android:layout_width="80dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="right">
+        android:orientation="vertical">
 
         <ImageButton
             android:src="@drawable/back"
@@ -25,6 +25,99 @@
             android:id="@+id/back_button"
             android:background="@color/buttonBackgroundColor"
             android:tint="@color/buttonColor"         
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+        />
+
+        <LinearLayout
+            android:paddingVertical="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SCORE"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:textColor="@color/textColor"
+            />
+
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:textColor="@color/textColor"
+            />
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingVertical="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="FOLDS"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:textColor="@color/textColor"
+            />
+
+            <TextView
+                android:id="@+id/folds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:textColor="@color/textColor"
+            />
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingVertical="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LIMIT"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/textColor"
+            />
+
+            <TextView
+                android:id="@+id/fold_limit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:textColor="@color/textColor"
+            />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
         />
     </LinearLayout>
 

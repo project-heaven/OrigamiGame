@@ -1,0 +1,57 @@
+﻿<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+
+    <LinearLayout
+        android:translationZ="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/buttonBackgroundColor"
+        >
+
+        <TextView
+            android:id="@+id/hints_remained"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="5 REMAINED"
+            android:paddingVertical="15dp"
+            android:textSize="20dp"
+            android:textColor="@color/buttonColor"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="40dp">
+
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="110dp"
+                android:layout_height="70dp"
+                android:paddingHorizontal="40dp"
+                android:paddingVertical="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/back"
+                android:tint="@color/buttonColor"
+                android:background="@color/buttonBackgroundColor"/>
+
+            <ImageButton
+                android:id="@+id/help_button"
+                android:layout_width="110dp"
+                android:layout_height="70dp"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="40dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/help"
+                android:tint="@color/buttonColor"
+                android:background="@color/buttonBackgroundColor"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

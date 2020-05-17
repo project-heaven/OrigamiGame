@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Preferences;
 using Android.Views;
 using Android.Widget;
 
@@ -18,11 +17,11 @@ namespace Origami
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
+            Window.AddFlags(WindowManagerFlags.Fullscreen);
 
             base.OnCreate(savedInstanceState);
 
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_mainmenu);
 
             FindViewById<ImageButton>(Resource.Id.start_button).Click += (s, e) => { StartGame(); };
@@ -42,8 +41,9 @@ namespace Origami
 
             Level.FoldLineColor = Resources.GetColor(Resource.Color.resultOutlineColor);
 
-            PaperSheet.Color = Resources.GetColor(Resource.Color.sheetColor);
-            PaperSheet.Color.A = 100;
+            var sheet_color = Resources.GetColor(Resource.Color.sheetColor);
+            sheet_color.A = 100;
+            PaperSheet.Color = sheet_color;
         }
 
         public LogicCore core;

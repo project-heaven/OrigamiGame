@@ -21,7 +21,7 @@ namespace Origami
             SetContentView(Resource.Layout.activity_levelselect);
 
             var level_grid = FindViewById<GridView>(Resource.Id.level_grid);
-            LevelsGridViewAdapter.button_count = 30;
+            LevelsGridViewAdapter.button_count = MainMenuActivity.Instance.core.LevelCount();
             level_grid.Adapter = new LevelsGridViewAdapter(this);
 
             level_grid.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args) {
@@ -39,8 +39,11 @@ namespace Origami
 
         void LevelSelected(int level)
         {
-            if(MainMenuActivity.Instance.core.SetLevel(level))
+            if(MainMenuActivity.Instance.core.GetLevelRating(level).unlocked)
+            {
                 StartActivity(typeof(GameActivity));
+                MainMenuActivity.Instance.core.SetLevel(level);
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Android.Graphics;
-using Java.Lang;
 using System.Collections.Generic;
 
 namespace Origami.Logics
@@ -74,11 +73,16 @@ namespace Origami.Logics
 
             for(float x = 0; x < 1; x += 0.01f)
                 for(float y = 0; y < 1; y += 0.01f)
-                {
-                    bool void_pixel = bitmap.GetPixel((int)(x * bitmap.Width), (int)(y * bitmap.Height)) == 0;
+                { 
+                    int pixel_color = bitmap.GetPixel((int)(x * bitmap.Width), (int)(y * bitmap.Height));
+
+                    bool sheet_covered = Color.R == Color.GetRedComponent(pixel_color);
                     bool should_be_inside = PointInsideOutline(new Vector2(x, y), resultOutline);
 
-                    if (void_pixel ^ should_be_inside)
+                    if (!sheet_covered)
+                        continue;
+
+                    if (should_be_inside)
                         correct++;
                     else
                         incorrect++;

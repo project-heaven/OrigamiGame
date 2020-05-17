@@ -9,4 +9,5 @@
     <color name="backgroundColor">#ffd8a6</color>
     <color name="buttonBackgroundColor">#ffd8a6</color>
     <color name="buttonColor">#007892</color>
+    <color name="textColor">#007892</color>
 </resources>
