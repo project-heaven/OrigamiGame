@@ -4,7 +4,6 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Java.Lang;
 using Origami.Logics;
 using Xamarin.Essentials;
 
@@ -98,11 +97,27 @@ namespace Origami
             AddContentView(lvl_fail_view, new ViewGroup.LayoutParams((int)display_info.Width, (int)display_info.Height));
         }
 
-        public void LevelCompleted(int stars)
+        public void LevelCompleted(int stars, bool last_level)
         {
             SetButtonsEnabled(false);
 
-            View lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.level_end_modal, null);
+            View lvl_complete_view;
+
+            if(last_level)
+            {
+                lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.last_level_end_modal, null);
+            }
+            else
+            {
+                lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.level_end_modal, null);
+
+                lvl_complete_view.FindViewById<ImageButton>(Resource.Id.next_button).Click += (s, e) =>
+                {
+                    MainMenuActivity.Instance.core.NextLevel();
+                    SetButtonsEnabled(true);
+                    ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
+                };
+            }
 
             var star_0 = lvl_complete_view.FindViewById<ImageView>(Resource.Id.star0);
             var star_1 = lvl_complete_view.FindViewById<ImageView>(Resource.Id.star1);
@@ -135,17 +150,6 @@ namespace Origami
                 SetButtonsEnabled(true);
                 ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
                 MainMenuActivity.Instance.core.CurrentLevel().ResetAndRefresh();
-            };
-
-            lvl_complete_view.FindViewById<ImageButton>(Resource.Id.next_button).Click += (s, e) =>
-            {
-                bool is_last_level = !MainMenuActivity.Instance.core.NextLevel();
-
-                if (is_last_level)
-                    return;
-
-                SetButtonsEnabled(true);
-                ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
             };
 
             var display_info = DeviceDisplay.MainDisplayInfo;
@@ -189,10 +193,7 @@ namespace Origami
         public void SetScore(int score)
         {
             last_score = score;
-            //MainThread.BeginInvokeOnMainThread(() => 
-            //{ 
-                FindViewById<TextView>(Resource.Id.score).Text = $"{score}%"; 
-            //});
+            FindViewById<TextView>(Resource.Id.score).Text = $"{score}%"; 
         }
 
         public void SetFolds(int folds)

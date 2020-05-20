@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -8,6 +8,15 @@
     android:minHeight="25px"
     android:gravity="center"
     android:background="@color/buttonBackgroundColor">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="WATERMARK WATERMARK WATERMARK WATERMARK WATERMARK WATERMARK"
+        android:gravity="center"
+        android:textColor="@android:color/holo_red_dark"
+        />
 
     <ImageButton
         android:id="@+id/start_button"
@@ -19,9 +28,11 @@
         android:background="@color/buttonBackgroundColor"
     />
 
-    <Button
-        android:id="@+id/dbg_reset_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RESET PROGRESS"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="WATERMARK WATERMARK WATERMARK WATERMARK WATERMARK"
+        android:textColor="@android:color/holo_red_dark"
+        android:gravity="center"/>
 </LinearLayout>

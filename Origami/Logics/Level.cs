@@ -54,8 +54,14 @@ namespace Origami.Logics
 
         #region load resources
 
+        bool xml_commas_replace;
+
         public Level(XmlElement level_element)
         {
+            string comma_check = "0,1";
+            float.TryParse(comma_check, out float comma_check_float);
+            xml_commas_replace = !(comma_check_float == 0.1f);
+
             if (level_element.GetAttribute("type") == "result")
                 type = LevelType.RESULT;
             else
@@ -82,10 +88,23 @@ namespace Origami.Logics
             int i = 0;
             foreach (XmlElement fold in folds_xml)
             {
-                float.TryParse(fold.GetAttribute("x0"), out float x0);
-                float.TryParse(fold.GetAttribute("y0"), out float y0);
-                float.TryParse(fold.GetAttribute("x1"), out float x1);
-                float.TryParse(fold.GetAttribute("y1"), out float y1);
+                string x0_str = fold.GetAttribute("x0");
+                string x1_str = fold.GetAttribute("x1");
+                string y0_str = fold.GetAttribute("y0");
+                string y1_str = fold.GetAttribute("y1");
+
+                if(xml_commas_replace)
+                {
+                    x0_str = x0_str.Replace(',', '.');
+                    x1_str = x1_str.Replace(',', '.');
+                    y0_str = y0_str.Replace(',', '.');
+                    y1_str = y1_str.Replace(',', '.');
+                }
+
+                float.TryParse(x0_str, out float x0);
+                float.TryParse(y0_str, out float y0);
+                float.TryParse(x1_str, out float x1);
+                float.TryParse(y1_str, out float y1);
 
                 Vector2 start = new Vector2(x0, y0);
                 Vector2 end = new Vector2(x1, y1);
@@ -104,8 +123,17 @@ namespace Origami.Logics
                 int i = 0; // Point counter.
                 foreach (XmlElement point in result)
                 {
-                    float.TryParse(point.GetAttribute("x"), out float x);
-                    float.TryParse(point.GetAttribute("y"), out float y);
+                    string x_str = point.GetAttribute("x");
+                    string y_str = point.GetAttribute("y");
+
+                    if (xml_commas_replace)
+                    {
+                        x_str = x_str.Replace(',', '.');
+                        y_str = y_str.Replace(',', '.');
+                    }
+
+                    float.TryParse(x_str, out float x);
+                    float.TryParse(y_str, out float y);
 
                     points[i] = new Vector2(x, y);
                     // Apply sheet padding
@@ -131,6 +159,8 @@ namespace Origami.Logics
                 return;
 
             FoldedSheet = fold_stages[--last_fold_id];
+
+            UpdateStates();
         }
 
         public void ResetFoldState()
@@ -153,6 +183,8 @@ namespace Origami.Logics
             RecreateCorrectPercentThread();
 
             UpdateStates();
+
+            GameActivity.Instance.SetScore(0);
         }
 
         public void UpdateStates()
@@ -220,7 +252,9 @@ namespace Origami.Logics
             Vector2 fold_vec = fold_start_pos - position_normalized;
             fold_line.angle = new Vector2(-fold_vec.y, fold_vec.x);
 
-            FoldedSheet = fold_stages[last_fold_id].Fold(fold_line);
+            var new_folded = fold_stages[last_fold_id].Fold(fold_line);
+            if (new_folded != null)
+                FoldedSheet = new_folded;
         }
 
         public void TouchEnd(Vector2 position_normalized)
@@ -253,6 +287,7 @@ namespace Origami.Logics
         public void RenderField(ImageView image_view)
         {
             Bitmap bmp = Bitmap.CreateBitmap(image_view.Width, image_view.Height, Bitmap.Config.Argb8888);
+
             var canvas = new Canvas(bmp);
 
             FoldedSheet.Render(canvas);
@@ -271,12 +306,12 @@ namespace Origami.Logics
             Paint paint = new Paint();
             paint.Color = FoldLineColor;
             paint.SetStyle(Paint.Style.Stroke);
-            //paint.StrokeCap = Paint.Cap.Round;
+            paint.StrokeCap = Paint.Cap.Round;
             paint.StrokeWidth = 5;
-            //paint.SetPathEffect(new DashPathEffect(new float[] { 10, 10 }, 0));
+            paint.SetPathEffect(new DashPathEffect(new float[] { 10, 10 }, 0));
 
             foreach (var line in resultOutlines[currOutline])
-                canvas.DrawLine(line.start.x * width, line.start.y * height, line.end.x * width, line.end.y * height, paint);
+                canvas.DrawLine((line.start.x * width), (line.start.y * height), (line.end.x * width), (line.end.y * height), paint);
         }
 
         #endregion

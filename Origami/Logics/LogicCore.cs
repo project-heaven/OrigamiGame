@@ -11,6 +11,10 @@ namespace Origami.Logics
 
         int current_level = 0;
 
+        public const float ONE_STAR_PERCENT = 0.90f;
+        public const float TWO_STARS_PERCENT = 0.925f;
+        public const float THREE_STARS_PERCENT = 0.95f;
+
         public int LevelCount()
         {
             return levels.Length;
@@ -26,15 +30,13 @@ namespace Origami.Logics
             return true;
         }
 
-        public bool NextLevel()
+        public void NextLevel()
         {
             if (current_level == levels.Length - 1)
-                return false;
+                return;
 
             if (levels[current_level + 1].rating.unlocked)
                 levels[++current_level].ResetAndRefresh();
-
-            return true;
         }
 
         public void CurrentLevelCompleted()
@@ -43,15 +45,13 @@ namespace Origami.Logics
 
             int stars = 0;
 
-            // FIXME: Hardcoded values 
-            if (rating > 0.85f)
-                stars++;
-            if (rating > 0.9f)
-                stars++;
-            if (rating > 0.95f)
-                stars++;
-
-            if (stars == 0)
+            if (rating >= THREE_STARS_PERCENT)
+                stars = 3;
+            else if (rating >= TWO_STARS_PERCENT)
+                stars = 2;
+            else if (rating >= ONE_STAR_PERCENT)
+                stars = 1;
+            else
             {
                 GameActivity.Instance.LevelFailed();
                 return;
@@ -66,7 +66,7 @@ namespace Origami.Logics
                 Preferences.Set($"level {current_level + 1} rating", 0);
             }
 
-            GameActivity.Instance.LevelCompleted(stars);
+            GameActivity.Instance.LevelCompleted(stars, current_level == levels.Length - 1);
         }
 
         public Level CurrentLevel()

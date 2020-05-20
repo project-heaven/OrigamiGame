@@ -13,7 +13,6 @@ namespace Origami.Logics
 
         public void LoadQuad(float padding)
         {
-            // Add all-quad
             triangles = new List<Triangle>()
             {
                 new Triangle()
@@ -36,7 +35,16 @@ namespace Origami.Logics
             PaperSheet new_paper = new PaperSheet();
 
             foreach (var triangle in triangles)
-                new_paper.triangles.AddRange(triangle.Fold(line));
+            {
+                var new_triangles = triangle.Fold(line);
+                foreach (var tr in new_triangles)
+                    foreach (var vert in tr.verts)
+                        if (vert.x > 1 || vert.y > 1 || vert.x < 0 || vert.y < 0)
+                            return null;
+
+                new_paper.triangles.AddRange(new_triangles);
+            }
+                
 
             return new_paper;
         }
@@ -73,15 +81,15 @@ namespace Origami.Logics
             int correct = 0;
             int incorrect = 1;
 
-            for(float x = 0; x < 1; x += 0.01f)
-                for(float y = 0; y < 1; y += 0.01f)
+            for(float x = 0; x < 1; x += 0.02f)
+                for(float y = 0; y < 1; y += 0.02f)
                 {
                     int pixel_color = bitmap.GetPixel((int)(x * bitmap.Width), (int)(y * bitmap.Height));
 
                     bool sheet_covered = pixel_color != 0 && Color.GetGreenComponent(pixel_color) != OutlineColor.G;
                     bool should_be_inside = PointInsideOutline(new Vector2(x, y), resultOutline);
 
-                    if (sheet_covered ^ should_be_inside)
+                    if ((sheet_covered & !should_be_inside) || (!sheet_covered & should_be_inside))
                         incorrect++;
                     else
                         correct++;
