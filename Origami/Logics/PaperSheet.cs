@@ -7,6 +7,8 @@ namespace Origami.Logics
     {
         public static Color Color;
 
+        public static Color OutlineColor;
+
         public PaperSheet() {  }
 
         public void LoadQuad(float padding)
@@ -69,23 +71,20 @@ namespace Origami.Logics
         public float GetCorrectPercent(Bitmap bitmap, LineSegment[] resultOutline)
         {
             int correct = 0;
-            int incorrect = 0;
+            int incorrect = 1;
 
             for(float x = 0; x < 1; x += 0.01f)
                 for(float y = 0; y < 1; y += 0.01f)
-                { 
+                {
                     int pixel_color = bitmap.GetPixel((int)(x * bitmap.Width), (int)(y * bitmap.Height));
 
-                    bool sheet_covered = Color.R == Color.GetRedComponent(pixel_color);
+                    bool sheet_covered = pixel_color != 0 && Color.GetGreenComponent(pixel_color) != OutlineColor.G;
                     bool should_be_inside = PointInsideOutline(new Vector2(x, y), resultOutline);
 
-                    if (!sheet_covered)
-                        continue;
-
-                    if (should_be_inside)
-                        correct++;
-                    else
+                    if (sheet_covered ^ should_be_inside)
                         incorrect++;
+                    else
+                        correct++;
                 }
 
             return (float)correct / (correct + incorrect);
@@ -93,11 +92,15 @@ namespace Origami.Logics
 
         bool PointInsideOutline(Vector2 point, LineSegment[] outline)
         {
-            foreach (var outline_segment in outline)
-                if (outline_segment.GetLine().GetPointSide(point) == PointSide.LEFT)
-                    return false;
+            LineSegment ray = new LineSegment(point, point + new Vector2(100, 0));
 
-            return true;
+            int intersections = 0;
+
+            foreach (var outline_segment in outline)
+                if (outline_segment.IntersectSegment(ray))
+                    intersections++;
+
+            return intersections % 2 == 1;
         }
     }
 }

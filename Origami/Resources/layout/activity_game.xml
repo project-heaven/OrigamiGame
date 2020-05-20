@@ -1,4 +1,4 @@
-
+﻿
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +11,6 @@
 
     <LinearLayout
         android:paddingTop="10dp"
-        android:paddingLeft="10dp"
         android:layout_width="80dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -19,13 +18,24 @@
         <ImageButton
             android:src="@drawable/back"
             android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:padding="5dp"
+            android:layout_height="30dp"
+            android:paddingLeft="15dp"
+            android:paddingVertical="5dp"
+            
             android:scaleType="centerCrop"
             android:id="@+id/back_button"
             android:background="@color/buttonBackgroundColor"
-            android:tint="@color/buttonColor"         
+            android:tint="@color/buttonColor"
         />
+
+        <TextView
+            android:paddingLeft="10dp"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="назад"
+            android:textSize="13dp"
+            android:gravity="center"
+            android:textColor="@color/textColor"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,26 +47,32 @@
             android:paddingVertical="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SCORE"
-                android:textStyle="bold"
+                android:text="счет"
+                android:textSize="13dp"
                 android:gravity="center"
                 android:paddingRight="10dp"
+                android:paddingTop="5dp"
                 android:textColor="@color/textColor"
+                android:background="@color/textBackgroundColor"
             />
 
             <TextView
                 android:id="@+id/score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:textSize="13dp"
                 android:gravity="center"
+                android:text="100%"
                 android:paddingRight="10dp"
+                android:paddingBottom="5dp"
                 android:textColor="@color/textColor"
+                android:background="@color/textBackgroundColor"
             />
         </LinearLayout>
 
@@ -69,21 +85,26 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="FOLDS"
-                android:textStyle="bold"
+                android:text="сгибов"
+                android:textSize="13dp"
                 android:gravity="center"
                 android:paddingRight="10dp"
+                android:paddingTop="5dp"
                 android:textColor="@color/textColor"
+                android:background="@color/textBackgroundColor"
             />
 
             <TextView
                 android:id="@+id/folds"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:textSize="13dp"
                 android:gravity="center"
+                android:text="0"
                 android:paddingRight="10dp"
+                android:paddingBottom="5dp"
                 android:textColor="@color/textColor"
+                android:background="@color/textBackgroundColor"
             />
         </LinearLayout>
 
@@ -96,21 +117,26 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="LIMIT"
-                android:gravity="center"
+                android:text="всего"
+                android:gravity="center_horizontal"
                 android:paddingRight="10dp"
-                android:textStyle="bold"
+                android:textSize="13dp"
+                android:paddingTop="5dp"
                 android:textColor="@color/textColor"
+                android:background="@color/textBackgroundColor"
             />
 
             <TextView
                 android:id="@+id/fold_limit"
+                android:textSize="13dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:gravity="center"
                 android:paddingRight="10dp"
+                android:text="2"
+                android:paddingBottom="5dp"
                 android:textColor="@color/textColor"
+                android:background="@color/textBackgroundColor"
             />
         </LinearLayout>
 
@@ -151,29 +177,46 @@
             android:id="@+id/help_button"
             android:src="@drawable/help"
             android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_height="45dp"
             android:padding="5dp"
             android:scaleType="centerCrop"
             android:background="@color/buttonBackgroundColor"
             android:tint="@color/buttonColor"
         />
 
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="помощь"
+            android:gravity="center"
+            android:textSize="13dp"
+            android:textColor="@color/textColor"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:orientation="vertical"
             android:gravity="center_vertical">
 
             <ImageButton
                 android:id="@+id/undo_button"
                 android:src="@drawable/undo"
                 android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_height="30dp"
                 android:padding="5dp"
                 android:scaleType="centerCrop"
                 android:background="@color/buttonBackgroundColor"
                 android:tint="@color/buttonColor"
             />
+
+            <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="отменить"
+                android:textSize="13dp"
+            android:gravity="center"
+            android:textColor="@color/textColor"/>
         </LinearLayout>
 
 
@@ -182,12 +225,20 @@
             android:id="@+id/reset_button"
             android:src="@drawable/reset"
             android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_height="45dp"
             android:padding="5dp"
             android:scaleType="centerCrop"
             android:background="@color/buttonBackgroundColor"
             android:tint="@color/buttonColor"
         />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="заново"
+            android:textSize="13dp"
+            android:gravity="center"
+            android:textColor="@color/textColor"/>
 
     </LinearLayout>
 </LinearLayout>

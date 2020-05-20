@@ -38,8 +38,8 @@ namespace Origami.Logics
         }
 
         public void CurrentLevelCompleted()
-        {
-            float rating = levels[current_level].GetCorrectPercent();
+        { 
+            float rating = Level.GetCorrectPercent();
 
             int stars = 0;
 
@@ -48,7 +48,7 @@ namespace Origami.Logics
                 stars++;
             if (rating > 0.9f)
                 stars++;
-            if (rating > 0.99f)
+            if (rating > 0.95f)
                 stars++;
 
             if (stars == 0)

@@ -39,10 +39,10 @@ namespace Origami
             if (view == null)
             {
                 LayoutInflater inflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
-                view = inflater.Inflate(Resource.Layout.level_icon, null, true);
+                view = inflater.Inflate(Resource.Layout.level_icon, parent, false);
             }
                 
-            view.FindViewById<TextView>(Resource.Id.level_number).Text = $"LEVEL {position + 1}";
+            view.FindViewById<TextView>(Resource.Id.level_number).Text = $"УРОВЕНЬ {position + 1}";
 
             var level_rate = MainMenuActivity.Instance.core.GetLevelRating(position);
 

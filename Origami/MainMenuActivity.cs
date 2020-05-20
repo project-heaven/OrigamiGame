@@ -44,6 +44,8 @@ namespace Origami
             var sheet_color = Resources.GetColor(Resource.Color.sheetColor);
             sheet_color.A = 100;
             PaperSheet.Color = sheet_color;
+
+            PaperSheet.OutlineColor = Resources.GetColor(Resource.Color.resultOutlineColor);
         }
 
         public LogicCore core;

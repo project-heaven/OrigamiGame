@@ -4,6 +4,7 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using Java.Lang;
 using Origami.Logics;
 using Xamarin.Essentials;
 
@@ -50,7 +51,7 @@ namespace Origami
             View help_modal_view = LayoutInflater.Inflate(Resource.Layout.help_modal, null);
 
             int hints = Preferences.Get("hints", DEFAULT_HINTS);
-            help_modal_view.FindViewById<TextView>(Resource.Id.hints_remained).Text = $"{hints} REMAINED";
+            help_modal_view.FindViewById<TextView>(Resource.Id.hints_remained).Text = $"{hints} ОСТАЛОСЬ";
             if (hints == 0)
                 help_modal_view.FindViewById<ImageButton>(Resource.Id.help_button).Enabled = false;
 
@@ -183,10 +184,15 @@ namespace Origami
                     break;
             }
         }
-    
-        public void SetScore(int percent)
+
+        public int last_score = 1000;
+        public void SetScore(int score)
         {
-            FindViewById<TextView>(Resource.Id.score).Text = $"{percent}%";
+            last_score = score;
+            //MainThread.BeginInvokeOnMainThread(() => 
+            //{ 
+                FindViewById<TextView>(Resource.Id.score).Text = $"{score}%"; 
+            //});
         }
 
         public void SetFolds(int folds)

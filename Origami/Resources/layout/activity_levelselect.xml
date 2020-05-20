@@ -7,24 +7,34 @@
     android:background="@color/buttonBackgroundColor">
 
     <ImageButton
-        android:id="@+id/back_button" 
         android:src="@drawable/back"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
+        android:layout_width="75dp"
+        android:layout_height="45dp"
+        android:paddingTop="15dp"
+        android:paddingLeft="15dp"
         android:scaleType="centerCrop"
-        android:tint="@color/buttonColor"
-        android:background="@color/buttonBackgroundColor" 
+        android:id="@+id/back_button"
+        android:background="@color/buttonBackgroundColor"
+        android:tint="@color/buttonColor"         
+    />
+
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="назад"
+        android:paddingLeft="15dp"
+        android:textSize="13dp"
+        android:gravity="center"
+        android:textColor="@color/textColor"
     />
 
     <GridView
         android:id="@+id/level_grid"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:numColumns="4"
+        android:gravity="center"
+        android:numColumns="3"
         android:verticalSpacing="30dp"
-        android:horizontalSpacing="30dp"
         android:stretchMode="columnWidth"
     />
 </LinearLayout>

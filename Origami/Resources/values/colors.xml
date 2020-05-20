@@ -4,10 +4,11 @@
     <color name="colorPrimaryDark">#1B3147</color>
     <color name="colorAccent">#3498db</color>
 
-    <color name="sheetColor">#ff427f</color>
-    <color name="resultOutlineColor">#007892</color>
-    <color name="backgroundColor">#ffd8a6</color>
-    <color name="buttonBackgroundColor">#ffd8a6</color>
-    <color name="buttonColor">#007892</color>
-    <color name="textColor">#007892</color>
+    <color name="sheetColor">#ee8572</color>
+    <color name="resultOutlineColor">#63b7af</color>
+    <color name="backgroundColor">#d4f3ef</color>
+    <color name="buttonBackgroundColor">#d4f3ef</color>
+    <color name="buttonColor">#63b7af</color>
+    <color name="textColor">#63b7af</color>
+    <color name="textBackgroundColor">#abf0e9</color>
 </resources>

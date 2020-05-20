@@ -2,6 +2,7 @@
 using Android.Widget;
 using Java.Lang;
 using System.Xml;
+using Xamarin.Essentials;
 
 namespace Origami.Logics
 {
@@ -149,13 +150,13 @@ namespace Origami.Logics
 
             FoldedSheet = fold_stages[0];
 
+            RecreateCorrectPercentThread();
+
             UpdateStates();
         }
 
         public void UpdateStates()
         {
-            correctPercentThreadBusy = false;
-            UpdateCorrectPercent();
             GameActivity.Instance.SetFoldLimit(fold_stages.Length - 1);
             GameActivity.Instance.SetFolds(last_fold_id);
         }
@@ -220,8 +221,6 @@ namespace Origami.Logics
             fold_line.angle = new Vector2(-fold_vec.y, fold_vec.x);
 
             FoldedSheet = fold_stages[last_fold_id].Fold(fold_line);
-
-            UpdateCorrectPercent();
         }
 
         public void TouchEnd(Vector2 position_normalized)
@@ -249,7 +248,7 @@ namespace Origami.Logics
         #region render
 
         // For GetCorrectPercent purpose.
-        Bitmap last_bitmap;
+        static Bitmap last_bitmap;
 
         public void RenderField(ImageView image_view)
         {
@@ -272,9 +271,9 @@ namespace Origami.Logics
             Paint paint = new Paint();
             paint.Color = FoldLineColor;
             paint.SetStyle(Paint.Style.Stroke);
-            paint.StrokeCap = Paint.Cap.Round;
+            //paint.StrokeCap = Paint.Cap.Round;
             paint.StrokeWidth = 5;
-            paint.SetPathEffect(new DashPathEffect(new float[] { 10, 10 }, 0));
+            //paint.SetPathEffect(new DashPathEffect(new float[] { 10, 10 }, 0));
 
             foreach (var line in resultOutlines[currOutline])
                 canvas.DrawLine(line.start.x * width, line.start.y * height, line.end.x * width, line.end.y * height, paint);
@@ -284,29 +283,40 @@ namespace Origami.Logics
 
         #region correct percent
 
-        static bool correctPercentThreadBusy = false;
+        static Thread correctPercentThread;
 
-        public void UpdateCorrectPercent()
+        public static float lastCorrectPercent = 1;
+
+        static void RecreateCorrectPercentThread()
         {
-            if (correctPercentThreadBusy)
-                return;
+            if (correctPercentThread != null)
+                correctPercentThread.Interrupt();
 
-            Thread correctPercentThread = new Thread(() =>
+            correctPercentThread = new Thread(() =>
             {
-                correctPercentThreadBusy = true;
-                GameActivity.Instance.SetScore((int)Math.Ceil(GetCorrectPercent() * 100));
-                correctPercentThreadBusy = false;
+                while (true)
+                {
+                    lastCorrectPercent = GetCorrectPercent();
+                    
+                    var score = (int)Math.Ceil(lastCorrectPercent * 100);
+                    if(GameActivity.Instance.last_score != score)
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            GameActivity.Instance.SetScore(score);
+                        });
+                }
             });
-
+            correctPercentThread.Priority = Thread.MinPriority;
             correctPercentThread.Start();
         }
 
-        public float GetCorrectPercent()
+        public static float GetCorrectPercent()
         {
             if (last_bitmap == null)
                 return 0;
 
-            return fold_stages[last_fold_id].GetCorrectPercent(last_bitmap, resultOutlines[currOutline]);
+            var curr_level = MainMenuActivity.Instance.core.CurrentLevel();
+            return curr_level.fold_stages[curr_level.last_fold_id].GetCorrectPercent(last_bitmap, curr_level.resultOutlines[curr_level.currOutline]);
         }
 
         #endregion

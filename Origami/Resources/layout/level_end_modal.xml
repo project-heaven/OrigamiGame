@@ -18,13 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="LEVEL COMPLETE"
+            android:text="УРОВЕНЬ ПРОЙДЕН"
             android:paddingVertical="25dp"
             android:textSize="20dp"
             android:textColor="@color/buttonColor"/>
 
         <AbsoluteLayout
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:background="@color/backgroundColor">
 
@@ -32,7 +32,7 @@
                 android:id="@+id/star0"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_x="15dp"
+                android:layout_x="25dp"
                 android:layout_y="0dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/star"
@@ -44,7 +44,7 @@
                 android:id="@+id/star1"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_x="85dp"
+                android:layout_x="95dp"
                 android:layout_y="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/star"
@@ -56,8 +56,8 @@
                 android:id="@+id/star2"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_x="155dp"
-                android:layout_y="00dp"
+                android:layout_x="165dp"
+                android:layout_y="0dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/star"
                 android:tint="@color/buttonColor"
@@ -72,37 +72,85 @@
             android:layout_height="match_parent"
             android:paddingTop="40dp">
 
-            <ImageButton
-                android:id="@+id/back_button"
+            <LinearLayout
                 android:layout_width="80dp"
-                android:layout_height="70dp"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/back"
-                android:tint="@color/buttonColor"
-                android:background="@color/buttonBackgroundColor"/>
+                android:layout_height="90dp"
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/reset_button"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:padding="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/reset"
-                android:tint="@color/buttonColor"
-                android:background="@color/buttonBackgroundColor"/>
+                <ImageButton
+                    android:id="@+id/back_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:paddingHorizontal="40dp"
+                    android:paddingVertical="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/back"
+                    android:tint="@color/buttonColor"
+                    android:background="@color/buttonBackgroundColor"/>
 
-            <ImageButton
-                android:id="@+id/next_button"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="назад"
+                    android:textSize="12dp"
+                    android:gravity="center"
+                    android:textColor="@color/textColor"
+                />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:layout_height="90dp"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/reset_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:paddingHorizontal="40dp"
+                    android:paddingVertical="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/reset"
+                    android:tint="@color/buttonColor"
+                    android:background="@color/buttonBackgroundColor"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="заново"
+                    android:textSize="12dp"
+                    android:gravity="center"
+                    android:textColor="@color/textColor"
+                />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="80dp"
-                android:layout_height="70dp"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/next"
-                android:tint="@color/buttonColor"
-                android:background="@color/buttonBackgroundColor"/>
+                android:layout_height="90dp"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/next_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:paddingHorizontal="40dp"
+                    android:paddingVertical="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/next"
+                    android:tint="@color/buttonColor"
+                    android:background="@color/buttonBackgroundColor"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="следующий"
+                    android:textSize="12dp"
+                    android:gravity="center"
+                    android:textColor="@color/textColor"
+                />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

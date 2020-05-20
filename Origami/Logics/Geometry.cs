@@ -244,6 +244,20 @@ namespace Origami.Logics
             return new FloatLine(start, end - start);
         }
 
+        bool PointIsInside(Vector2 point)
+        {
+            return (end - point).Dot(point - start) > 0;
+        }
+
+        public bool IntersectSegment(LineSegment segment)
+        {
+            Vector2 line_intersection = GetLine().LineIntersection(segment.GetLine());
+            if (PointIsInside(line_intersection) && segment.PointIsInside(line_intersection))
+                return true;
+
+            return false;
+        }
+
         public List<LineSegment> Fold(FloatLine line)
         {
             List<LineSegment> segments = new List<LineSegment>();
