@@ -10,141 +10,103 @@
     >
 
     <LinearLayout
-        android:paddingTop="10dp"
-        android:layout_width="80dp"
+        android:paddingLeft="19dp"
+        android:layout_width="83dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ImageButton
-            android:src="@drawable/back"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:paddingLeft="15dp"
-            android:paddingVertical="5dp"
-            
-            android:scaleType="centerCrop"
             android:id="@+id/back_button"
-            android:background="@color/buttonBackgroundColor"
-            android:tint="@color/buttonColor"
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:background="@drawable/roundedBottomCorners"
+            android:backgroundTint="@color/baseColor"
+            android:src="@drawable/back"
+            android:scaleType="fitEnd"
+            android:tint="@color/iconColor"
+            android:paddingHorizontal="12dp"
+            android:paddingBottom="15dp"
         />
-
-        <TextView
-            android:paddingLeft="10dp"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:text="назад"
-            android:textSize="13dp"
-            android:gravity="center"
-            android:textColor="@color/textColor"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-        />
+            android:layout_weight="1"/>
 
         <LinearLayout
-            android:paddingVertical="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:background="@drawable/roundedtopcorners"
+            android:backgroundTint="@color/baseColor"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="счет"
-                android:textSize="18dp"
+                android:text="SCORE"
                 android:gravity="center"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
+                android:textSize="16dp"
+                android:paddingTop="35dp"
+                android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
-                android:background="@color/textBackgroundColor"
             />
 
             <TextView
                 android:id="@+id/score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="13dp"
+                android:text="98%"
                 android:gravity="center"
-                android:text="100%"
-                android:paddingRight="10dp"
-                android:paddingBottom="5dp"
+                android:textSize="16dp"
+                android:paddingBottom="16dp"
+                android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
-                android:background="@color/textBackgroundColor"
             />
-        </LinearLayout>
-
-        <LinearLayout
-            android:paddingVertical="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="сгибов"
-                android:textSize="18dp"
+                android:text="FOLDS"
                 android:gravity="center"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
+                android:textSize="16dp"
+                android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
-                android:background="@color/textBackgroundColor"
             />
 
             <TextView
                 android:id="@+id/folds"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="13dp"
+                android:text="2"
                 android:gravity="center"
-                android:text="0"
-                android:paddingRight="10dp"
-                android:paddingBottom="5dp"
+                android:textSize="16dp"
+                android:paddingBottom="16dp"
+                android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
-                android:background="@color/textBackgroundColor"
             />
-        </LinearLayout>
-
-        <LinearLayout
-            android:paddingVertical="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="всего"
-                android:gravity="center_horizontal"
-                android:paddingRight="10dp"
-                android:textSize="18dp"
-                android:paddingTop="5dp"
+                android:text="LIMIT"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
-                android:background="@color/textBackgroundColor"
             />
 
             <TextView
                 android:id="@+id/fold_limit"
-                android:textSize="13dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="6"
                 android:gravity="center"
-                android:paddingRight="10dp"
-                android:text="2"
-                android:paddingBottom="5dp"
+                android:textSize="16dp"
+                android:paddingBottom="20dp"
+                android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
-                android:background="@color/textBackgroundColor"
             />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-        />
     </LinearLayout>
 
     <LinearLayout
@@ -153,8 +115,17 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:gravity="center"
-        >
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/level_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="level 1 : beginning"
+            android:gravity="center"
+            android:fontFamily="@font/somatic_rounded"
+            android:paddingVertical="3dp"
+        />
 
         <ImageView
             android:id="@+id/game_field"
@@ -165,80 +136,93 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="70dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:gravity="fill_vertical"
-        android:id="@+id/linearLayout2">
-
-        <ImageButton
-            android:id="@+id/help_button"
-            android:src="@drawable/help"
-            android:layout_width="60dp"
-            android:layout_height="45dp"
-            android:padding="5dp"
-            android:scaleType="centerCrop"
-            android:background="@color/buttonBackgroundColor"
-            android:tint="@color/buttonColor"
-        />
-
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:text="помощь"
-            android:gravity="center"
-            android:textSize="13dp"
-            android:textColor="@color/textColor"/>
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/roundedLeftCorners"
+            android:backgroundTint="@color/accentColor"
+            android:layout_marginTop="19dp"
+            android:paddingLeft="7dp"
+            android:paddingVertical="7dp"
+            android:paddingRight="19dp"
             android:gravity="center_vertical">
 
-            <ImageButton
-                android:id="@+id/undo_button"
-                android:src="@drawable/undo"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:padding="5dp"
-                android:scaleType="centerCrop"
-                android:background="@color/buttonBackgroundColor"
-                android:tint="@color/buttonColor"
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/help"
+                android:tint="@color/iconColor"
             />
 
             <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:text="отменить"
-                android:textSize="13dp"
-            android:gravity="center"
-            android:textColor="@color/textColor"/>
+                android:id="@+id/help_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:paddingHorizontal="15dp"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/somatic_rounded"
+                android:textColor="@color/textColor"
+                android:textSize="25dp"
+            />
+
+            <ImageButton
+                android:id="@+id/help"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@drawable/roundedCorners"
+                android:backgroundTint="@color/secondaryColor"
+                android:src="@drawable/ok"
+                android:tint="@color/iconColor"
+                android:scaleType="centerCrop"
+                android:padding="2dp"
+                android:layout_marginRight="11dp"
+            />
         </LinearLayout>
 
-
-
-        <ImageButton
-            android:id="@+id/reset_button"
-            android:src="@drawable/reset"
-            android:layout_width="60dp"
-            android:layout_height="45dp"
-            android:padding="5dp"
-            android:scaleType="centerCrop"
-            android:background="@color/buttonBackgroundColor"
-            android:tint="@color/buttonColor"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
         />
 
-        <TextView
-            android:layout_width="60dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="заново"
-            android:textSize="13dp"
-            android:gravity="center"
-            android:textColor="@color/textColor"/>
+            android:orientation="vertical"
+            android:paddingBottom="19dp"
+            android:paddingRight="19dp"
+            android:gravity="right">
 
+            <ImageButton
+                android:id="@+id/restart"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/roundedCorners"
+                android:backgroundTint="@color/baseColor"
+                android:src="@drawable/restart"
+                android:scaleType="centerCrop"
+                android:padding="10dp"
+                android:layout_marginBottom="30dp"
+                android:tint="@color/iconColor"
+            />
+
+            <ImageButton
+                android:id="@+id/undo"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/roundedCorners"
+                android:backgroundTint="@color/baseColor"
+                android:src="@drawable/undo"
+                android:scaleType="centerCrop"
+                android:padding="10dp"
+                android:tint="@color/iconColor"
+            />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -1,75 +1,99 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
-
-<LinearLayout
+﻿<AbsoluteLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
-    
-    android:gravity="center"
-    >
-
-    <AbsoluteLayout 
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:translationZ="2dp"
-        android:background="@color/buttonBackgroundColor">
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:background="@drawable/roundedCorners"
+    android:backgroundTint="@color/secondaryColor"
+    android:translationZ="2dp">
 
     <TextView
         android:id="@+id/level_number"
-        android:text="УРОВЕНЬ 20"
-        android:gravity="center_horizontal"
+        android:height="36dp"
+        android:text="level 20"
+        android:gravity="center"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_y="7dp"
         android:scaleType="centerCrop"
-        android:textColor="@color/buttonColor"         
+        android:textColor="@color/textColor"
+        android:background="@drawable/roundedTopCorners"
+        android:backgroundTint="@color/baseColor"
     />
 
     <ImageView
         android:id="@+id/star0"
         android:src="@drawable/star"
-        android:layout_width="41dp"
-        android:layout_height="41dp"
-        android:layout_x="4.5dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_x="10dp"
         android:layout_y="60dp"
         android:scaleType="centerCrop"
-        android:tint="@color/buttonColor"         
+        android:tint="@color/baseColor"         
+    /> 
+
+    <ImageView
+        android:id="@+id/star0_outline"
+        android:src="@drawable/star_outline"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_x="10dp"
+        android:layout_y="60dp"
+        android:scaleType="centerCrop"
+        android:tint="@color/thirdColor"         
     /> 
         
     <ImageView
         android:id="@+id/star1"
         android:src="@drawable/star"
-        android:layout_width="41dp"
-        android:layout_height="41dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_x= "44.5dp"
-        android:layout_y="74dp"
+        android:layout_y="60dp"
         android:scaleType="centerCrop"
-        android:tint="@color/buttonColor"         
-    />   
+        android:tint="@color/baseColor"         
+    />  
+    
+    <ImageView
+        android:id="@+id/star1_outline"
+        android:src="@drawable/star_outline"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_x= "44.5dp"
+        android:layout_y="60dp"
+        android:scaleType="centerCrop"
+        android:tint="@color/thirdColor"         
+    />
 
     <ImageView
         android:id="@+id/star2"
         android:src="@drawable/star"
-        android:layout_width="41dp"
-        android:layout_height="41dp"
-        android:layout_x="84.5dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_x="79dp"
         android:layout_y="60dp"
         android:scaleType="centerCrop"
-        android:tint="@color/buttonColor"         
-    />   
+        android:tint="@color/baseColor"         
+    />  
+    
+    <ImageView
+        android:id="@+id/star2_outline"
+        android:src="@drawable/star_outline"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_x="79dp"
+        android:layout_y="60dp"
+        android:scaleType="centerCrop"
+        android:tint="@color/thirdColor"         
+    />  
 
     <ImageView
         android:id="@+id/lock"
         android:src="@drawable/lock"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_x="40dp"
-        android:layout_y= "30dp"
+        android:layout_y= "55dp"
         android:scaleType="centerCrop"
-        android:tint="@color/buttonColor"         
+        android:tint="@color/iconColor"         
     />  
-
-    </AbsoluteLayout>
-</LinearLayout>
+</AbsoluteLayout>

@@ -26,6 +26,8 @@ namespace Origami
 
             FindViewById<ImageButton>(Resource.Id.start_button).Click += (s, e) => { StartGame(); };
 
+            FindViewById<Button>(Resource.Id.dbg).Click += (s, e) => Preferences.Clear();
+
             if (Instance != null)
                 return;
 

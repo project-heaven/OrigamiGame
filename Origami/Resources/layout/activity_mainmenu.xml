@@ -7,32 +7,21 @@
     android:minWidth="25px"
     android:minHeight="25px"
     android:gravity="center"
-    android:background="@color/buttonBackgroundColor">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:text="WATERMARK WATERMARK WATERMARK WATERMARK WATERMARK WATERMARK"
-        android:gravity="center"
-        android:textColor="@android:color/holo_red_dark"
-        />
+    android:background="@color/baseColor">
 
     <ImageButton
         android:id="@+id/start_button"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/play"
-        android:tint="@color/buttonColor"
-        android:background="@color/buttonBackgroundColor"
+        android:src="@drawable/ok"
+        android:tint="@android:color/black"
+        android:background="@color/baseColor"
     />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:text="WATERMARK WATERMARK WATERMARK WATERMARK WATERMARK"
-        android:textColor="@android:color/holo_red_dark"
-        android:gravity="center"/>
+    <Button
+        android:id="@+id/dbg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="reset state"/>
 </LinearLayout>

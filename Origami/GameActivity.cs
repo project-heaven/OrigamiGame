@@ -16,6 +16,8 @@ namespace Origami
 
         ImageView game_field;
 
+        public const int DEFAULT_HINTS = 20;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             Instance = this;
@@ -36,12 +38,10 @@ namespace Origami
 
             FindViewById<ImageButton>(Resource.Id.back_button).Click += (s, e) => StartActivity(typeof(LevelSelectActivity));
 
-            FindViewById<ImageButton>(Resource.Id.help_button).Click += (s, e) => ShowHelpModal();
-            FindViewById<ImageButton>(Resource.Id.undo_button).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().Undo();
-            FindViewById<ImageButton>(Resource.Id.reset_button).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().ResetAndRefresh();
+            //FindViewById<ImageButton>(Resource.Id.help_button).Click += (s, e) => ShowHelpModal();
+            FindViewById<ImageButton>(Resource.Id.undo).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().Undo();
+            FindViewById<ImageButton>(Resource.Id.restart).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().ResetAndRefresh();
         }
-
-        public const int DEFAULT_HINTS = 5;
 
         public void ShowHelpModal()
         {
@@ -50,24 +50,24 @@ namespace Origami
             View help_modal_view = LayoutInflater.Inflate(Resource.Layout.help_modal, null);
 
             int hints = Preferences.Get("hints", DEFAULT_HINTS);
-            help_modal_view.FindViewById<TextView>(Resource.Id.hints_remained).Text = $"{hints} ОСТАЛОСЬ";
-            if (hints == 0)
-                help_modal_view.FindViewById<ImageButton>(Resource.Id.help_button).Enabled = false;
+            //help_modal_view.FindViewById<TextView>(Resource.Id.hints_remained).Text = $"{hints} ОСТАЛОСЬ";
+            //if (hints == 0)
+                //help_modal_view.FindViewById<ImageButton>(Resource.Id.help_button).Enabled = false;
 
-            help_modal_view.FindViewById<ImageButton>(Resource.Id.back_button).Click += (s, e) =>
-            {
-                SetButtonsEnabled(true);
-                ((ViewGroup)help_modal_view.Parent).RemoveView(help_modal_view);
-            };
+            //help_modal_view.FindViewById<ImageButton>(Resource.Id.back_button).Click += (s, e) =>
+            //{
+            //    SetButtonsEnabled(true);
+            //    ((ViewGroup)help_modal_view.Parent).RemoveView(help_modal_view);
+            //};
 
-            help_modal_view.FindViewById<ImageButton>(Resource.Id.help_button).Click += (s, e) =>
-            {
-                Preferences.Set("hints", Preferences.Get("hints", DEFAULT_HINTS) - 1);
-
-                MainMenuActivity.Instance.core.CurrentLevel().Help();
-                SetButtonsEnabled(true);
-                ((ViewGroup)help_modal_view.Parent).RemoveView(help_modal_view);
-            };
+            //help_modal_view.FindViewById<ImageButton>(Resource.Id.help_button).Click += (s, e) =>
+            //{
+            //    Preferences.Set("hints", Preferences.Get("hints", DEFAULT_HINTS) - 1);
+            //
+            //    MainMenuActivity.Instance.core.CurrentLevel().Help();
+            //    SetButtonsEnabled(true);
+            //    ((ViewGroup)help_modal_view.Parent).RemoveView(help_modal_view);
+            //};
 
             var display_info = DeviceDisplay.MainDisplayInfo;
             AddContentView(help_modal_view, new ViewGroup.LayoutParams((int)display_info.Width, (int)display_info.Height));
@@ -79,14 +79,14 @@ namespace Origami
 
             View lvl_fail_view = LayoutInflater.Inflate(Resource.Layout.level_lose_modal, null);
 
-            lvl_fail_view.FindViewById<ImageButton>(Resource.Id.back_button).Click += (s, e) =>
+            lvl_fail_view.FindViewById<ImageButton>(Resource.Id.back).Click += (s, e) =>
             {
                 SetButtonsEnabled(true);
                 ((ViewGroup)lvl_fail_view.Parent).RemoveView(lvl_fail_view);
                 StartActivity(typeof(LevelSelectActivity));
             };
 
-            lvl_fail_view.FindViewById<ImageButton>(Resource.Id.reset_button).Click += (s, e) =>
+            lvl_fail_view.FindViewById<ImageButton>(Resource.Id.restart).Click += (s, e) =>
             {
                 SetButtonsEnabled(true);
                 ((ViewGroup)lvl_fail_view.Parent).RemoveView(lvl_fail_view);
@@ -105,13 +105,13 @@ namespace Origami
 
             if(last_level)
             {
-                lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.last_level_end_modal, null);
+                lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.level_end_modal, null);
             }
             else
             {
                 lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.level_end_modal, null);
 
-                lvl_complete_view.FindViewById<ImageButton>(Resource.Id.next_button).Click += (s, e) =>
+                lvl_complete_view.FindViewById<ImageButton>(Resource.Id.next).Click += (s, e) =>
                 {
                     MainMenuActivity.Instance.core.NextLevel();
                     SetButtonsEnabled(true);
@@ -123,29 +123,33 @@ namespace Origami
             var star_1 = lvl_complete_view.FindViewById<ImageView>(Resource.Id.star1);
             var star_2 = lvl_complete_view.FindViewById<ImageView>(Resource.Id.star2);
 
+            var star_0_outline = lvl_complete_view.FindViewById<ImageView>(Resource.Id.star0_outline);
+            var star_1_outline = lvl_complete_view.FindViewById<ImageView>(Resource.Id.star1_outline);
+            var star_2_outline = lvl_complete_view.FindViewById<ImageView>(Resource.Id.star2_outline);
+
             if (stars >= 1)
-                star_0.SetImageResource(Resource.Drawable.star_filled);
+                star_0.SetImageDrawable(Resources.GetDrawable(Resource.Drawable.star));
             else
-                star_0.SetImageResource(Resource.Drawable.star);
+                star_0.SetImageDrawable(Resources.GetDrawable(Resource.Drawable.transparent));
 
             if (stars >= 2)
-                star_1.SetImageResource(Resource.Drawable.star_filled);
+                star_1.SetImageDrawable(Resources.GetDrawable(Resource.Drawable.star));
             else
-                star_1.SetImageResource(Resource.Drawable.star);
+                star_1.SetImageDrawable(Resources.GetDrawable(Resource.Drawable.transparent));
 
             if (stars >= 3)
-                star_2.SetImageResource(Resource.Drawable.star_filled);
+                star_2.SetImageDrawable(Resources.GetDrawable(Resource.Drawable.star));
             else
-                star_2.SetImageResource(Resource.Drawable.star);
+                star_2.SetImageDrawable(Resources.GetDrawable(Resource.Drawable.transparent));
 
-            lvl_complete_view.FindViewById<ImageButton>(Resource.Id.back_button).Click += (s, e) => 
+            lvl_complete_view.FindViewById<ImageButton>(Resource.Id.back).Click += (s, e) => 
             {
                 SetButtonsEnabled(true);
                 ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
                 StartActivity(typeof(LevelSelectActivity));
             };
 
-            lvl_complete_view.FindViewById<ImageButton>(Resource.Id.reset_button).Click += (s, e) =>
+            lvl_complete_view.FindViewById<ImageButton>(Resource.Id.restart).Click += (s, e) =>
             {
                 SetButtonsEnabled(true);
                 ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
@@ -160,11 +164,11 @@ namespace Origami
         {
             Level.FoldsDenied = !state;
 
-            FindViewById<ImageButton>(Resource.Id.help_button).Enabled = state;
-            FindViewById<ImageButton>(Resource.Id.undo_button).Enabled = state;
-            FindViewById<ImageButton>(Resource.Id.reset_button).Enabled = state;
+            //FindViewById<ImageButton>(Resource.Id.help_button).Enabled = state;
+            //FindViewById<ImageButton>(Resource.Id.undo_button).Enabled = state;
+            //FindViewById<ImageButton>(Resource.Id.reset_button).Enabled = state;
 
-            FindViewById<ImageButton>(Resource.Id.back_button).Enabled = state;
+            //FindViewById<ImageButton>(Resource.Id.back_button).Enabled = state;
         }
 
         void Touch(object sender, View.TouchEventArgs e)
@@ -193,17 +197,17 @@ namespace Origami
         public void SetScore(int score)
         {
             last_score = score;
-            FindViewById<TextView>(Resource.Id.score).Text = $"{score}%"; 
+            //FindViewById<TextView>(Resource.Id.score).Text = $"{score}%"; 
         }
 
         public void SetFolds(int folds)
         {
-            FindViewById<TextView>(Resource.Id.folds).Text = folds.ToString();
+            //FindViewById<TextView>(Resource.Id.folds).Text = folds.ToString();
         }
 
         public void SetFoldLimit(int limit)
         {
-            FindViewById<TextView>(Resource.Id.fold_limit).Text = limit.ToString();
+            //FindViewById<TextView>(Resource.Id.fold_limit).Text = limit.ToString();
         }
 
         public void RedrawField()

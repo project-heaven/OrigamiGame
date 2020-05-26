@@ -3,154 +3,133 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    >
+    android:gravity="center">
 
     <LinearLayout
         android:translationZ="2dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:orientation="vertical"
-        android:background="@color/buttonBackgroundColor"
-        >
+        android:background="@drawable/roundedCorners"
+        android:backgroundTint="@color/baseColor">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Level 1"
             android:gravity="center"
-            android:text="УРОВЕНЬ ПРОЙДЕН"
-            android:paddingVertical="25dp"
             android:textSize="20dp"
-            android:textColor="@color/buttonColor"/>
+            android:layout_marginVertical="10dp"
+            android:fontFamily="@font/somatic_rounded"
+            android:textColor="@color/thirdColor"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="COMPLETE!"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/somatic_rounded"
+            android:textColor="@color/thirdColor"
+        />
 
         <AbsoluteLayout
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:background="@color/backgroundColor">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/star0"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_x="25dp"
-                android:layout_y="0dp"
-                android:scaleType="centerCrop"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_x="29dp"
                 android:src="@drawable/star"
-                android:tint="@color/buttonColor"
-                android:background="@color/buttonBackgroundColor"
+                android:tint="@color/accentColor"
+            />
+
+            <ImageView
+                android:id="@+id/star0_outline"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_x="29dp"
+                android:src="@drawable/star_outline"
+                android:tint="@color/thirdColor"
             />
 
             <ImageView
                 android:id="@+id/star1"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_x="95dp"
-                android:layout_y="10dp"
-                android:scaleType="centerCrop"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_x="79dp"
                 android:src="@drawable/star"
-                android:tint="@color/buttonColor"
-                android:background="@color/buttonBackgroundColor"
+                android:tint="@color/accentColor"
+            />
+
+            <ImageView
+                android:id="@+id/star1_outline"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_x="79dp"
+                android:src="@drawable/star_outline"
+                android:tint="@color/thirdColor"
             />
 
             <ImageView
                 android:id="@+id/star2"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_x="165dp"
-                android:layout_y="0dp"
-                android:scaleType="centerCrop"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_x="129dp"
                 android:src="@drawable/star"
-                android:tint="@color/buttonColor"
-                android:background="@color/buttonBackgroundColor"
+                android:tint="@color/accentColor"
+            />
+
+            <ImageView
+                android:id="@+id/star2_outline"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_x="129dp"
+                android:src="@drawable/star_outline"
+                android:tint="@color/thirdColor"
             />
         </AbsoluteLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="bottom"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="40dp">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="19dp">
 
-            <LinearLayout
-                android:layout_width="80dp"
-                android:layout_height="90dp"
-                android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/undo"
+                android:scaleType="centerCrop"
+                android:tint="@color/iconColor"
+                android:background="@android:color/transparent"
+                android:layout_marginLeft="19dp"
+            />
 
-                <ImageButton
-                    android:id="@+id/back_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:paddingHorizontal="40dp"
-                    android:paddingVertical="10dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/back"
-                    android:tint="@color/buttonColor"
-                    android:background="@color/buttonBackgroundColor"/>
+            <ImageButton
+                android:id="@+id/restart"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/restart"
+                android:scaleType="fitCenter"
+                android:layout_marginHorizontal="19dp"
+                android:tint="@color/iconColor"
+                android:background="@android:color/transparent"
+            />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="назад"
-                    android:textSize="12dp"
-                    android:gravity="center"
-                    android:textColor="@color/textColor"
-                />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_weight="1"
-                android:layout_height="90dp"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/reset_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:paddingHorizontal="40dp"
-                    android:paddingVertical="10dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/reset"
-                    android:tint="@color/buttonColor"
-                    android:background="@color/buttonBackgroundColor"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="заново"
-                    android:textSize="12dp"
-                    android:gravity="center"
-                    android:textColor="@color/textColor"
-                />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="80dp"
-                android:layout_height="90dp"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/next_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:paddingHorizontal="40dp"
-                    android:paddingVertical="10dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/next"
-                    android:tint="@color/buttonColor"
-                    android:background="@color/buttonBackgroundColor"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="следующий"
-                    android:textSize="12dp"
-                    android:gravity="center"
-                    android:textColor="@color/textColor"
-                />
-            </LinearLayout>
+            <ImageButton
+                android:id="@+id/next"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/next"
+                android:scaleType="fitCenter"
+                android:tint="@color/iconColor"
+                android:background="@android:color/transparent"
+            />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

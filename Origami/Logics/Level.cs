@@ -38,6 +38,7 @@ namespace Origami.Logics
         int last_help_id;
 
         const float SHEET_PADDING = 0.1f;
+        const float MIN_MOVE = 0.0005f;
 
         FloatLine[] folds;
 
@@ -247,6 +248,9 @@ namespace Origami.Logics
             if (FoldsDenied || last_fold_id == fold_stages.Length - 1)
                 return;
 
+            if((position_normalized - fold_start_pos).LengthSqr() <= MIN_MOVE) // Click but not move
+                return;
+
             FloatLine fold_line = new FloatLine();
             fold_line.passThrough = (fold_start_pos + position_normalized) * 0.5f;
             Vector2 fold_vec = fold_start_pos - position_normalized;
@@ -260,6 +264,9 @@ namespace Origami.Logics
         public void TouchEnd(Vector2 position_normalized)
         {
             if (FoldsDenied || last_fold_id == fold_stages.Length - 1)
+                return;
+
+            if ((position_normalized - fold_start_pos).LengthSqr() <= MIN_MOVE) // Click but not move
                 return;
 
             if (type == LevelType.SEQUENCE && currOutline < resultOutlines.Length - 1)
