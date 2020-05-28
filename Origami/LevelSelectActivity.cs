@@ -22,10 +22,11 @@ namespace Origami
 
             InflateLevelIcons();
 
-            FindViewById<ImageButton>(Resource.Id.back_button).Click 
+            FindViewById<ImageButton>(Resource.Id.back_button).Click
             += (s, e) => { StartActivity(typeof(MainMenuActivity)); };
         }
 
+        
         void InflateLevelIcons()
         {
             LinearLayout[] rows = new LinearLayout[4];
@@ -97,7 +98,7 @@ namespace Origami
                 }
             }
         }
-
+        
         void LevelSelected(int level)
         {
             if(MainMenuActivity.Instance.core.GetLevelRating(level).unlocked)

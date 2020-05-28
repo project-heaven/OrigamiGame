@@ -47,6 +47,7 @@
                 android:gravity="center"
                 android:textSize="16dp"
                 android:paddingTop="35dp"
+                android:paddingBottom="4dp"
                 android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
             />
@@ -58,7 +59,7 @@
                 android:text="98%"
                 android:gravity="center"
                 android:textSize="16dp"
-                android:paddingBottom="16dp"
+                android:paddingBottom="22dp"
                 android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
             />
@@ -69,6 +70,7 @@
                 android:text="FOLDS"
                 android:gravity="center"
                 android:textSize="16dp"
+                android:paddingBottom="4dp"
                 android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
             />
@@ -80,7 +82,7 @@
                 android:text="2"
                 android:gravity="center"
                 android:textSize="16dp"
-                android:paddingBottom="16dp"
+                android:paddingBottom="22dp"
                 android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
             />
@@ -91,6 +93,7 @@
                 android:text="LIMIT"
                 android:gravity="center"
                 android:textSize="16dp"
+                android:paddingBottom="4dp"
                 android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
             />
@@ -102,7 +105,7 @@
                 android:text="6"
                 android:gravity="center"
                 android:textSize="16dp"
-                android:paddingBottom="20dp"
+                android:paddingBottom="62dp"
                 android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
             />
@@ -117,16 +120,6 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <TextView
-            android:id="@+id/level_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="level 1 : beginning"
-            android:gravity="center"
-            android:fontFamily="@font/somatic_rounded"
-            android:paddingVertical="3dp"
-        />
-
         <ImageView
             android:id="@+id/game_field"
             android:src="@android:drawable/ic_menu_gallery"
@@ -138,7 +131,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="right">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -152,11 +146,16 @@
             android:paddingRight="19dp"
             android:gravity="center_vertical">
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/help"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
+                android:background="@color/accentColor"
                 android:src="@drawable/help"
                 android:tint="@color/iconColor"
+                android:scaleType="centerCrop"
+                android:padding="1dp"
+                android:layout_marginRight="11dp"
             />
 
             <TextView
@@ -164,24 +163,50 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"
-                android:paddingHorizontal="15dp"
+                android:paddingHorizontal="8dp"
                 android:gravity="center_vertical"
                 android:fontFamily="@font/somatic_rounded"
                 android:textColor="@color/textColor"
                 android:textSize="25dp"
             />
+        </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/help"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:background="@drawable/roundedCorners"
-                android:backgroundTint="@color/secondaryColor"
-                android:src="@drawable/ok"
-                android:tint="@color/iconColor"
-                android:scaleType="centerCrop"
-                android:padding="2dp"
-                android:layout_marginRight="11dp"
+        <LinearLayout
+            android:layout_marginTop="19dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:paddingVertical="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/roundedLeftCorners"
+            android:backgroundTint="@color/baseColor">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="level 1"
+                android:gravity="center"
+                android:fontFamily="@font/somatic_rounded"
+                android:textSize="16dp"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:gravity="center"
+                android:fontFamily="@font/somatic_rounded"
+                android:textSize="16dp"
+            />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tortotoise"
+                android:gravity="center"
+                android:fontFamily="@font/somatic_rounded"
+                android:textSize="16dp"
             />
         </LinearLayout>
 
@@ -210,6 +235,12 @@
                 android:padding="10dp"
                 android:layout_marginBottom="30dp"
                 android:tint="@color/iconColor"
+            />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
             />
 
             <ImageButton

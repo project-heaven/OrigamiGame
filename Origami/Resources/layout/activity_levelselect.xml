@@ -1,4 +1,5 @@
 <LinearLayout
+    android:id="@+id/main_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
@@ -8,7 +9,7 @@
     <LinearLayout
         android:paddingLeft="19dp"
         android:layout_width="83dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ImageButton
@@ -27,8 +28,6 @@
 
      <ScrollView
         android:translationZ="10px"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="20dp"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:fadeScrollbars="false"
@@ -41,8 +40,8 @@
         android:scrollbarSize="15dp"
         android:paddingRight="10dp"
         android:paddingLeft="32dp"
-        android:background="@drawable/roundedLeftcorners"
-        android:backgroundTint="@color/secondaryColor"
+        android:background="@color/backgroundColor"
+        android:backgroundTint="@color/backgroundColor"
         android:clipToPadding="true">
 
         <LinearLayout
@@ -65,7 +64,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include android:id="@+id/lvl0" layout="@layout/level_icon"/>
+                     <include android:id="@+id/lvl0" layout="@layout/icon_level"/>
                  </LinearLayout>
                     
                 <LinearLayout
@@ -74,7 +73,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include android:id="@+id/lvl1" layout="@layout/level_icon"/>
+                     <include android:id="@+id/lvl1" layout="@layout/icon_level"/>
                  </LinearLayout>
 
                 <LinearLayout
@@ -83,7 +82,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include android:id="@+id/lvl2" layout="@layout/level_icon"/>
+                     <include android:id="@+id/lvl2" layout="@layout/icon_level"/>
                  </LinearLayout>
 
                 <LinearLayout
@@ -92,7 +91,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include android:id="@+id/lvl3" layout="@layout/level_icon"/>
+                     <include android:id="@+id/lvl3" layout="@layout/icon_level"/>
                  </LinearLayout>
             </LinearLayout>
 
@@ -109,7 +108,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include layout="@layout/level_icon"/>
+                     <include layout="@layout/icon_level"/>
                  </LinearLayout>
                     
                 <LinearLayout
@@ -118,7 +117,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include layout="@layout/level_icon"/>
+                     <include layout="@layout/icon_level"/>
                  </LinearLayout>
 
                 <LinearLayout
@@ -127,7 +126,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include layout="@layout/level_icon"/>
+                     <include layout="@layout/icon_level"/>
                  </LinearLayout>
 
                 <LinearLayout
@@ -136,7 +135,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include layout="@layout/level_icon"/>
+                     <include layout="@layout/icon_level"/>
                  </LinearLayout>
             </LinearLayout>
 
@@ -153,7 +152,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include layout="@layout/level_icon"/>
+                     <include layout="@layout/icon_level"/>
                  </LinearLayout>
                     
                 <LinearLayout
@@ -162,7 +161,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include layout="@layout/level_icon"/>
+                     <include layout="@layout/icon_level"/>
                  </LinearLayout>
 
                 <LinearLayout
@@ -171,7 +170,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include layout="@layout/level_icon"/>
+                     <include layout="@layout/icon_level"/>
                  </LinearLayout>
 
                 <LinearLayout
@@ -180,7 +179,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include layout="@layout/level_icon"/>
+                     <include layout="@layout/icon_level"/>
                  </LinearLayout>
             </LinearLayout>
 
@@ -197,7 +196,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include layout="@layout/level_icon"/>
+                     <include layout="@layout/icon_level"/>
                  </LinearLayout>
                     
                 <LinearLayout
@@ -206,7 +205,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include layout="@layout/level_icon"/>
+                     <include layout="@layout/icon_level"/>
                  </LinearLayout>
 
                 <LinearLayout
@@ -215,7 +214,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include layout="@layout/level_icon"/>
+                     <include layout="@layout/icon_level"/>
                  </LinearLayout>
 
                 <LinearLayout
@@ -224,7 +223,7 @@
                      android:layout_weight="1"
                      android:gravity="center">
 
-                     <include layout="@layout/level_icon"/>
+                     <include layout="@layout/icon_level"/>
                  </LinearLayout>
             </LinearLayout>
         </LinearLayout>

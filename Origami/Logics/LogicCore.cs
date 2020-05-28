@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System.Xml;
 using Xamarin.Essentials;
 
 namespace Origami.Logics
@@ -73,6 +74,10 @@ namespace Origami.Logics
         {
             return levels[current_level];
         }
+
+        #if DEBUG
+             public static Dictionary<int, int> level_folds_count = new Dictionary<int, int>();
+        #endif
 
         public void Init(string levels_xml)
         {

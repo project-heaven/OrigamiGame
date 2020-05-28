@@ -15,6 +15,10 @@ namespace Origami
     {
         public static MainMenuActivity Instance;
 
+        public const string ad_id = "ca-app-pub-3940256099942544/5224354917"/*"ca-app-pub-3824185688302776~6278298542"*/;
+
+        public LogicCore core;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             Window.AddFlags(WindowManagerFlags.Fullscreen);
@@ -24,9 +28,11 @@ namespace Origami
             Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_mainmenu);
 
-            FindViewById<ImageButton>(Resource.Id.start_button).Click += (s, e) => { StartGame(); };
+            FindViewById<ImageButton>(Resource.Id.start_button).Click += (s, e) => StartActivity(typeof(LevelSelectActivity));
 
             FindViewById<Button>(Resource.Id.dbg).Click += (s, e) => Preferences.Clear();
+
+            FindViewById<Button>(Resource.Id.about_button).Click += (s, e) => StartActivity(typeof(AboutActivity));
 
             if (Instance != null)
                 return;
@@ -44,13 +50,6 @@ namespace Origami
             PaperSheet.Color = sheet_color;
 
             PaperSheet.OutlineColor = Resources.GetColor(Resource.Color.resultOutlineColor);
-        }
-
-        public LogicCore core;
-
-        void StartGame()
-        {
-            StartActivity(typeof(LevelSelectActivity));
         }
     }
 }

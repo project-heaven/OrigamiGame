@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:id="@+id/no_hints"
     >
 
     <LinearLayout
@@ -20,22 +21,26 @@
             android:text="No more hints"
             android:gravity="center"
             android:textColor="@color/thirdColor"
+            android:fontFamily="@font/somatic_rounded"
             android:textSize="18dp"
-            android:layout_marginVertical="15dp"/>
+            android:layout_marginVertical="15dp"
+        />
 
         <LinearLayout
+            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="fill_horizontal">
 
-            <ImageView
+            <ImageButton
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:layout_marginLeft="22dp"
+                android:layout_marginLeft="15dp"
                 android:padding="12dp"
                 android:src="@drawable/buy"
                 android:tint="@color/iconColor"
+                android:scaleType="centerCrop"
                 android:background="@drawable/roundedcorners"
                 android:backgroundTint="@color/accentColor"
             />
@@ -43,13 +48,16 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+            />
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/show_ads"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:layout_marginRight="22dp"
+                android:layout_marginRight="15dp"
                 android:padding="12dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ads"
                 android:tint="@color/iconColor"
                 android:background="@drawable/roundedcorners"

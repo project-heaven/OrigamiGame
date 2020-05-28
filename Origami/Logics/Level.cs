@@ -1,6 +1,7 @@
 ﻿using Android.Graphics;
 using Android.Widget;
 using Java.Lang;
+using System.Collections.Generic;
 using System.Xml;
 using Xamarin.Essentials;
 
@@ -47,15 +48,16 @@ namespace Origami.Logics
             RESULT,
             SEQUENCE
         }
-        LevelType type;
+        const LevelType type = LevelType.RESULT;
 
-        // If levelType is RESULT then this array is LineSegment[][1] else LineSegment[][COUNT_OF_FOLDS]
-        LineSegment[][] resultOutlines;
+        LineSegment[] resultOutline;
         int currOutline = 0;
 
         #region load resources
 
         bool xml_commas_replace;
+
+        
 
         public Level(XmlElement level_element)
         {
@@ -63,21 +65,23 @@ namespace Origami.Logics
             float.TryParse(comma_check, out float comma_check_float);
             xml_commas_replace = !(comma_check_float == 0.1f);
 
-            if (level_element.GetAttribute("type") == "result")
-                type = LevelType.RESULT;
-            else
-                type = LevelType.SEQUENCE;
-
             foreach (XmlElement data in level_element)
                 if(data.Name == "folds")
                     LoadFolds(data);
-                else if (data.Name == "results")
-                    LoadResultOutlines(data);
+                else if (data.Name == "result")
+                    LoadResultOutline(data);
 
             fold_stages = new PaperSheet[max_folds + 1];
             fold_stages[0] = new PaperSheet();
             fold_stages[0].LoadQuad(SHEET_PADDING);
             last_fold_id = 0;
+
+            #if DEBUG
+                if (LogicCore.level_folds_count.ContainsKey(max_folds))
+                    LogicCore.level_folds_count[max_folds]++;
+                else
+                    LogicCore.level_folds_count.Add(max_folds, 1);
+            #endif
 
             FoldedSheet = fold_stages[0];
         }
@@ -113,43 +117,36 @@ namespace Origami.Logics
             }
         }
 
-        void LoadResultOutlines(XmlElement results_xml)
+        void LoadResultOutline(XmlElement result_xml)
         {
-            resultOutlines = new LineSegment[results_xml.ChildNodes.Count][];
+            resultOutline = new LineSegment[result_xml.ChildNodes.Count];
 
-            int curr_outline = 0;
-            foreach(XmlElement result in results_xml)
+            Vector2[] points = new Vector2[result_xml.ChildNodes.Count];
+            int i = 0; // Point counter.
+            foreach (XmlElement point in result_xml)
             {
-                Vector2[] points = new Vector2[result.ChildNodes.Count];
-                int i = 0; // Point counter.
-                foreach (XmlElement point in result)
+                string x_str = point.GetAttribute("x");
+                string y_str = point.GetAttribute("y");
+
+                if (xml_commas_replace)
                 {
-                    string x_str = point.GetAttribute("x");
-                    string y_str = point.GetAttribute("y");
-
-                    if (xml_commas_replace)
-                    {
-                        x_str = x_str.Replace(',', '.');
-                        y_str = y_str.Replace(',', '.');
-                    }
-
-                    float.TryParse(x_str, out float x);
-                    float.TryParse(y_str, out float y);
-
-                    points[i] = new Vector2(x, y);
-                    // Apply sheet padding
-                    points[i] = points[i] * (1.0f - 2.0f * SHEET_PADDING);
-                    points[i] = points[i] + new Vector2(SHEET_PADDING, SHEET_PADDING);
-
-                    i++;
+                    x_str = x_str.Replace(',', '.');
+                    y_str = y_str.Replace(',', '.');
                 }
 
-                resultOutlines[curr_outline] = new LineSegment[points.Length];
-                for (i = 0; i < points.Length; i++)
-                    resultOutlines[curr_outline][i] = new LineSegment(points[i], points[(i + 1) % points.Length]);
+                float.TryParse(x_str, out float x);
+                float.TryParse(y_str, out float y);
 
-                curr_outline++;
+                points[i] = new Vector2(x, y);
+                // Apply sheet padding
+                points[i] = points[i] * (1.0f - 2.0f * SHEET_PADDING);
+                points[i] = points[i] + new Vector2(SHEET_PADDING, SHEET_PADDING);
+
+                i++;
             }
+
+            for (i = 0; i < points.Length; i++)
+                resultOutline[i] = new LineSegment(points[i], points[(i + 1) % points.Length]);
         }
 
         #endregion
@@ -184,8 +181,6 @@ namespace Origami.Logics
             RecreateCorrectPercentThread();
 
             UpdateStates();
-
-            GameActivity.Instance.SetScore(0);
         }
 
         public void UpdateStates()
@@ -196,39 +191,18 @@ namespace Origami.Logics
 
         public void Help()
         {
-            if(type == LevelType.RESULT)
-            {
-                last_help_id++;
+            last_help_id++;
 
-                for(int i = 0; i < last_help_id; i++)
-                    fold_stages[i + 1] = fold_stages[i].Fold(folds[i]);
+            for(int i = 0; i < last_help_id; i++)
+                fold_stages[i + 1] = fold_stages[i].Fold(folds[i]);
 
-                last_fold_id = last_help_id;
-                FoldedSheet = fold_stages[last_help_id];
+            last_fold_id = last_help_id;
+            FoldedSheet = fold_stages[last_help_id];
                 
-                if (last_fold_id == fold_stages.Length - 1)
-                    MainMenuActivity.Instance.core.CurrentLevelCompleted();
+            if (last_fold_id == fold_stages.Length - 1)
+                MainMenuActivity.Instance.core.CurrentLevelCompleted();
 
-                UpdateStates();
-            }
-            else
-            {
-                if (currOutline < resultOutlines.Length - 1)
-                {
-                    currOutline++;
-                    // Update outline.
-                    GameActivity.Instance.RedrawField();
-                }
-
-                FoldedSheet = fold_stages[last_fold_id].Fold(folds[last_fold_id]);
-                fold_stages[last_fold_id + 1] = FoldedSheet;
-                last_fold_id++;
-
-                if (last_fold_id == fold_stages.Length - 1)
-                    MainMenuActivity.Instance.core.CurrentLevelCompleted();
-
-                UpdateStates();
-            }
+            UpdateStates();
         }
 
         #region input
@@ -268,13 +242,6 @@ namespace Origami.Logics
 
             if ((position_normalized - fold_start_pos).LengthSqr() <= MIN_MOVE) // Click but not move
                 return;
-
-            if (type == LevelType.SEQUENCE && currOutline < resultOutlines.Length - 1)
-            {
-                currOutline++;
-                // Update outline.
-                GameActivity.Instance.RedrawField();
-            }
                 
             fold_stages[++last_fold_id] = FoldedSheet;
 
@@ -317,7 +284,7 @@ namespace Origami.Logics
             paint.StrokeWidth = 5;
             paint.SetPathEffect(new DashPathEffect(new float[] { 10, 10 }, 0));
 
-            foreach (var line in resultOutlines[currOutline])
+            foreach (var line in resultOutline)
                 canvas.DrawLine((line.start.x * width), (line.start.y * height), (line.end.x * width), (line.end.y * height), paint);
         }
 
@@ -358,7 +325,7 @@ namespace Origami.Logics
                 return 0;
 
             var curr_level = MainMenuActivity.Instance.core.CurrentLevel();
-            return curr_level.fold_stages[curr_level.last_fold_id].GetCorrectPercent(last_bitmap, curr_level.resultOutlines[curr_level.currOutline]);
+            return curr_level.fold_stages[curr_level.last_fold_id].GetCorrectPercent(last_bitmap, curr_level.resultOutline);
         }
 
         #endregion

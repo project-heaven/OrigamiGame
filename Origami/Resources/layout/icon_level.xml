@@ -18,6 +18,7 @@
         android:textColor="@color/textColor"
         android:background="@drawable/roundedTopCorners"
         android:backgroundTint="@color/baseColor"
+        android:fontFamily="@font/somatic_rounded"
     />
 
     <ImageView
