@@ -28,11 +28,11 @@ namespace Origami
             Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_mainmenu);
 
-            FindViewById<ImageButton>(Resource.Id.start_button).Click += (s, e) => StartActivity(typeof(LevelSelectActivity));
+            FindViewById<ImageButton>(Resource.Id.start_button).Click += (s, e) => StartActivity(typeof(ChapterSelectActivity));
 
-            FindViewById<Button>(Resource.Id.dbg).Click += (s, e) => Preferences.Clear();
+            //FindViewById<Button>(Resource.Id.dbg).Click += (s, e) => Preferences.Clear();
 
-            FindViewById<Button>(Resource.Id.about_button).Click += (s, e) => StartActivity(typeof(AboutActivity));
+            FindViewById<TextView>(Resource.Id.about_button).Click += (s, e) => StartActivity(typeof(AboutActivity));
 
             if (Instance != null)
                 return;

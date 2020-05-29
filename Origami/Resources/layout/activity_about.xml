@@ -9,17 +9,26 @@
     android:background="@color/backgroundColor">
 
     <LinearLayout
+        android:elevation="@dimen/elevation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/backgroundColor"
+        android:paddingBottom="19dp">
 
         <LinearLayout
+            android:clipToPadding="false"
             android:paddingLeft="19dp"
-            android:layout_width="83dp"
-            android:layout_height="77dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:layout_width="91dp"
+            android:layout_height="85dp"
             android:orientation="vertical">
 
             <ImageButton
+                android:elevation="@dimen/elevation"
+                android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
+                android:outlineSpotShadowColor="@color/basePointShadowColor"
                 android:id="@+id/back_button"
                 android:layout_width="match_parent"
                 android:layout_height="77dp"

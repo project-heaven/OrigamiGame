@@ -1,33 +1,121 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="25px"
     android:minHeight="25px"
-    android:gravity="center"
-    android:background="@color/baseColor">
+    android:background="@color/backgroundColor">
 
-    <ImageButton
-        android:id="@+id/start_button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ok"
-        android:tint="@android:color/black"
-        android:background="@color/baseColor"
-    />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:paddingLeft="19dp"
+        android:paddingRight="19dp"
+        android:paddingBottom="19dp"
+        android:clipToPadding="false">
 
-    <Button
-        android:id="@+id/dbg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="reset state"/>
+        <ImageButton
+            android:elevation="@dimen/elevation"
+            android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
+            android:outlineSpotShadowColor="@color/basePointShadowColor"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/music"
+            android:background="@drawable/roundedCorners"
+            android:scaleType="centerCrop"
+            android:backgroundTint="@color/baseColor"
+            android:paddingVertical="16dp"
+            android:paddingLeft="13dp"
+            android:paddingRight="19dp"
+            android:tint="@color/iconColor"
+        />
 
-    <Button
-        android:id="@+id/about_button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="about"/>
+        <ImageButton
+            android:elevation="@dimen/elevation"
+            android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
+            android:outlineSpotShadowColor="@color/basePointShadowColor"
+            android:layout_marginLeft="19dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/sound"
+            android:background="@drawable/roundedCorners"
+            android:scaleType="centerCrop"
+            android:backgroundTint="@color/baseColor"
+            android:padding="14dp"
+            android:tint="@color/iconColor"
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingTop="19dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="papigami"
+            android:gravity="center"
+            android:textSize="50dp"
+            android:fontFamily="@font/somatic_rounded"
+            android:textColor="@color/textColor"
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center">
+
+            <ImageButton
+                android:elevation="@dimen/elevation"
+                android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
+                android:outlineSpotShadowColor="@color/basePointShadowColor"
+                android:id="@+id/start_button"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:src="@drawable/play"
+                android:tint="@color/thirdColor"
+                android:scaleType="centerCrop"
+                android:paddingVertical="32dp"
+                android:paddingRight="25dp"
+                android:paddingLeft="40dp"
+                android:background="@drawable/roundedCornersLarge"
+                android:backgroundTint="@color/baseColor"
+            />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingRight="19dp"
+        android:paddingBottom="19dp"
+        android:paddingLeft="19dp"
+        android:clipToPadding="false">
+
+        <TextView
+            android:elevation="@dimen/elevation"
+            android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
+            android:outlineSpotShadowColor="@color/basePointShadowColor"
+            android:id="@+id/about_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="about..."
+            android:fontFamily="@font/somatic_rounded"
+            android:textSize="24dp"
+            android:backgroundTint="@color/baseColor"
+            android:background="@drawable/roundedCorners"
+            android:paddingVertical="6dp"
+            android:paddingHorizontal="16dp"
+            android:gravity="center"
+        />
+    </LinearLayout>
 </LinearLayout>

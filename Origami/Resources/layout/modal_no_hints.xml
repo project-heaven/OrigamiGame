@@ -8,7 +8,9 @@
     >
 
     <LinearLayout
-        android:translationZ="2dp"
+        android:elevation="@dimen/elevation"
+        android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
+        android:outlineSpotShadowColor="@color/basePointShadowColor"
         android:layout_width="187dp"
         android:layout_height="142dp"
         android:orientation="vertical"
