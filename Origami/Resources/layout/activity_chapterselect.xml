@@ -30,106 +30,64 @@
             android:paddingBottom="15dp"
         />
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/somatic_rounded"
-            android:text="chapters"
-            android:textSize="18dp"
-            android:textColor="@color/textColor"
-            android:paddingVertical="4dp"
-            android:paddingHorizontal="16dp"
-            android:background="@drawable/roundedCorners"
-            android:backgroundTint="@color/baseColor"
-            android:layout_marginVertical="25dp"
-        />
-
         <AbsoluteLayout
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent">
+            android:layout_width="56dp"
+            android:layout_height="22dp"
+            android:layout_marginVertical="25dp"
+            android:background="@drawable/roundedCorners"
+            android:backgroundTint="@color/secondaryColor">
 
             <LinearLayout
-                android:layout_width="4dp"
-                android:layout_height="match_parent">
+                android:orientation="vertical"
+                android:id="@+id/screen_selected0"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/roundedCorners"
+                android:backgroundTint="@color/baseColor"
+            />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shadowRight"
-                />
-            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/screen_selected1"
+                android:layout_x="34dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/transparent"
+                android:backgroundTint="@color/baseColor"
+            />
 
-            <HorizontalScrollView
-                android:paddingTop="5dp"
-                android:requiresFadingEdge="horizontal"
-                android:fadingEdgeLength="2dp"
-                android:fadingEdge="@color/shadowColor"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:fadeScrollbars="false"
-                android:overScrollMode="never"
-                android:scrollbarThumbHorizontal="@drawable/scrollbarThumb"
-                android:scrollbarTrackHorizontal="@color/backgroundColor"
-                android:scrollbarSize="15dp"
-                android:scrollbars="none">
-                
-                <LinearLayout
-                    android:id="@+id/chapter_icons"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="bottom">
+            <LinearLayout
+                android:layout_x="5.5dp"
+                android:layout_y="5.5dp"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:background="@drawable/roundedCorners"
+                android:backgroundTint="@color/thirdColor"
+            />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:paddingRight="30dp"
-                        android:paddingLeft="10dp">
-
-                        <include layout="@layout/icon_chapter"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:paddingHorizontal="30dp">
-
-                        <include layout="@layout/icon_chapter"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:paddingHorizontal="30dp">
-
-                        <include layout="@layout/icon_chapter"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:paddingHorizontal="30dp">
-
-                        <include layout="@layout/icon_chapter"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="30dp"
-                        android:paddingRight="10dp">
-
-                        <include layout="@layout/icon_chapter"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
+            <LinearLayout
+                android:layout_x="39.5dp"
+                android:layout_y="5.5dp"
+                android:layout_width="11dp"
+                android:layout_height="11dp"
+                android:background="@drawable/roundedCorners"
+                android:backgroundTint="@color/thirdColor"
+            />
         </AbsoluteLayout>
+
+        <android.support.v4.view.ViewPager
+            android:paddingTop="6dp"
+            android:clipToPadding="false"
+            android:id="@+id/chapters_pager"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+        />
     </LinearLayout>
 </LinearLayout>

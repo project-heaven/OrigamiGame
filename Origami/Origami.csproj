@@ -76,6 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ads.cs" />
+    <Compile Include="LevelPagerAdapter.cs" />
+    <Compile Include="ChapterPagerAdapter.cs" />
     <Compile Include="GameActivity.cs" />
     <Compile Include="ChapterSelectActivity.cs" />
     <Compile Include="Logics\Level.cs" />
@@ -283,20 +285,12 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\shadowBottom">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    <AndroidResource Include="Resources\layout\chapter_screen.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\shadowLeft.xml">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\shadowRight.xml">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    <AndroidResource Include="Resources\layout\level_screen.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
