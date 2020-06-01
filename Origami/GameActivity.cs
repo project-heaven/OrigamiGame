@@ -16,7 +16,7 @@ namespace Origami
 
         ImageView game_field;
 
-        public const int DEFAULT_HINTS = 20;
+        public const int DEFAULT_HINTS = 5;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -136,6 +136,8 @@ namespace Origami
 
         public void LevelFailed()
         {
+            MainMenuActivity.audioPlayer.PlayLose();
+
             SetButtonsEnabled(false);
 
             View lvl_fail_view = LayoutInflater.Inflate(Resource.Layout.modal_level_lose, null);
@@ -164,8 +166,20 @@ namespace Origami
             AddContentView(lvl_fail_view, new ViewGroup.LayoutParams((int)display_info.Width, (int)display_info.Height));
         }
 
+        static int interestial_counter = 0;
+        const int interestial_rate = 5;
+
         public void LevelCompleted(int stars, bool last_level)
         {
+            interestial_counter++;
+            if (interestial_counter >= interestial_rate)
+            {
+                interestial_counter = 0;
+                Ads.ShowInterestitial();
+            }
+                
+            MainMenuActivity.audioPlayer.PlayWin();
+
             SetButtonsEnabled(false);
 
             View lvl_complete_view;
@@ -275,6 +289,16 @@ namespace Origami
         {
             last_score = score;
             FindViewById<TextView>(Resource.Id.score).Text = $"{score}%"; 
+        }
+
+        public void SetLevelNumber(int number)
+        {
+            FindViewById<TextView>(Resource.Id.level_number).Text = "level " + number.ToString();
+        }
+
+        public void SetLevelName(string name)
+        {
+            FindViewById<TextView>(Resource.Id.level_name).Text = name;
         }
 
         public void SetFolds(int folds)

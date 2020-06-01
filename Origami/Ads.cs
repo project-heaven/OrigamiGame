@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Gms.Ads;
 using Android.Gms.Ads.Rewarded;
 
@@ -6,8 +7,37 @@ namespace Origami
 {
     public static class Ads
     {
+        const string interstial_id = "ca-app-pub-3940256099942544/1033173712";
+        const string rewarded_id = "ca-app-pub-3940256099942544/5224354917";
+
         static RewardedAd rewardedAd;
         static Activity rewardedAdsActivity;
+
+        static InterstitialAd interestitialAd;
+
+        public static void Init(Context context)
+        {
+            interestitialAd = new InterstitialAd(context);
+            interestitialAd.AdUnitId = interstial_id;
+            interestitialAd.LoadAd(new AdRequest.Builder().Build());
+            interestitialAd.RewardedVideoAdClosed += InterestitialClosed;
+        }
+
+        static void InterestitialClosed(object sender, System.EventArgs e)
+        {
+            MainMenuActivity.audioPlayer.ResumeAmbient();
+        }
+
+        public static void ShowInterestitial()
+        {
+            if (interestitialAd.IsLoaded)
+            {
+                MainMenuActivity.audioPlayer.PauseAmbient();
+                interestitialAd.Show();
+            }
+
+            interestitialAd.LoadAd(new AdRequest.Builder().Build());
+        }
 
         class RewardAdLoadCallback : RewardedAdLoadCallback
         {
@@ -54,7 +84,7 @@ namespace Origami
         {
             rewardedAdsActivity = ads_activity;
 
-            rewardedAd = new RewardedAd(ads_activity, MainMenuActivity.ad_id);
+            rewardedAd = new RewardedAd(ads_activity, rewarded_id);
 
             GameActivity.Instance.AdState = GameActivity.RewardAdState.LOADING;
             rewardedAd.LoadAd(new AdRequest.Builder().Build(), new RewardAdLoadCallback());

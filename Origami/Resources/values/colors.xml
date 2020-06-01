@@ -17,4 +17,5 @@
     <color name="accentAmbientShadowColor">#FDCB9E</color>
 
     <color name="grayoutColor">#88977F</color>
+    <color name="origamiSampleGrayoutColor">#555555</color>
 </resources>

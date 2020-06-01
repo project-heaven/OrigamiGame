@@ -1,7 +1,6 @@
 ﻿using Android.Graphics;
 using Android.Widget;
 using Java.Lang;
-using System.Collections.Generic;
 using System.Xml;
 using Xamarin.Essentials;
 
@@ -38,6 +37,9 @@ namespace Origami.Logics
 
         int last_help_id;
 
+        string name;
+        int id;
+
         const float SHEET_PADDING = 0.1f;
         const float MIN_MOVE = 0.0005f;
 
@@ -57,10 +59,11 @@ namespace Origami.Logics
 
         bool xml_commas_replace;
 
-        
-
-        public Level(XmlElement level_element)
+        public Level(XmlElement level_element, int level_number)
         {
+            name = level_element.GetAttribute("name");
+            id = level_number;
+
             string comma_check = "0,1";
             float.TryParse(comma_check, out float comma_check_float);
             xml_commas_replace = !(comma_check_float == 0.1f);
@@ -187,6 +190,8 @@ namespace Origami.Logics
         {
             GameActivity.Instance.SetFoldLimit(fold_stages.Length - 1);
             GameActivity.Instance.SetFolds(last_fold_id);
+            GameActivity.Instance.SetLevelName(name);
+            GameActivity.Instance.SetLevelNumber(id);
         }
 
         public void Help()
@@ -257,19 +262,26 @@ namespace Origami.Logics
 
         // For GetCorrectPercent purpose.
         static Bitmap last_bitmap;
+        static Bitmap field_bitmap;
 
         public void RenderField(ImageView image_view)
         {
-            Bitmap bmp = Bitmap.CreateBitmap(image_view.Width, image_view.Height, Bitmap.Config.Argb8888);
+            if(field_bitmap == null)
+            {
+                field_bitmap = Bitmap.CreateBitmap(image_view.Width, image_view.Height, Bitmap.Config.Argb8888);
+            }
 
-            var canvas = new Canvas(bmp);
+            field_bitmap.EraseColor(0);
+
+            var canvas = new Canvas(field_bitmap);
 
             FoldedSheet.Render(canvas);
 
+            last_bitmap = field_bitmap;
+
             RenderResultOutline(canvas);
 
-            image_view.SetImageBitmap(bmp);
-            last_bitmap = bmp;
+            image_view.SetImageBitmap(field_bitmap);
         }
 
         void RenderResultOutline(Canvas canvas)
@@ -301,22 +313,24 @@ namespace Origami.Logics
             if (correctPercentThread != null)
                 correctPercentThread.Interrupt();
 
-            correctPercentThread = new Thread(() =>
-            {
-                while (true)
-                {
-                    lastCorrectPercent = GetCorrectPercent();
-                    
-                    var score = (int)Math.Ceil(lastCorrectPercent * 100);
-                    if(GameActivity.Instance.last_score != score)
-                        MainThread.BeginInvokeOnMainThread(() =>
-                        {
-                            GameActivity.Instance.SetScore(score);
-                        });
-                }
-            });
+            correctPercentThread = new Thread(CorrectPercentComputer);
             correctPercentThread.Priority = Thread.MinPriority;
             correctPercentThread.Start();
+        }
+
+        static void CorrectPercentComputer()
+        {
+            while (true)
+            {
+                lastCorrectPercent = GetCorrectPercent();
+
+                var score = (int)Math.Ceil(lastCorrectPercent * 100);
+                if (GameActivity.Instance.last_score != score)
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        GameActivity.Instance.SetScore(score);
+                    });
+            }
         }
 
         public static float GetCorrectPercent()

@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
+using Xamarin.Essentials;
 
 namespace Origami
 {
@@ -34,12 +35,12 @@ namespace Origami
         {
             ChapterPagerAdapter.chapters = new ChapterPagerAdapter.Chapter[]
             {
-                new ChapterPagerAdapter.Chapter() { image_id = Resource.Drawable.whale, level_count = 16, name = "whale", passed_count = 0 },
-                new ChapterPagerAdapter.Chapter() { image_id = Resource.Drawable.fox, level_count = 15, name = "fox", passed_count = 1 },
-                new ChapterPagerAdapter.Chapter() { image_id = Resource.Drawable.pony, level_count = 14, name = "pony", passed_count = 2 },
-                new ChapterPagerAdapter.Chapter() { image_id = Resource.Drawable.pigeons, level_count = 13, name = "pigeons", passed_count = 3 },
-                new ChapterPagerAdapter.Chapter() { image_id = Resource.Drawable.giraffe, level_count = 12, name = "giraffe", passed_count = 4 },
-                new ChapterPagerAdapter.Chapter() { image_id = Resource.Drawable.coala, level_count = 11, name = "coala", passed_count = 5 }
+                new ChapterPagerAdapter.Chapter() { image_id = Resource.Drawable.whale, level_count = 24, name = "whale", passed_count = Preferences.Get($"chapter 0 passed", 0) },
+                new ChapterPagerAdapter.Chapter() { image_id = Resource.Drawable.fox, level_count = 24, name = "fox", passed_count = Preferences.Get($"chapter 1 passed", -1) },
+                new ChapterPagerAdapter.Chapter() { image_id = Resource.Drawable.pony, level_count = 24, name = "pony", passed_count = Preferences.Get($"chapter 2 passed", -1) },
+                new ChapterPagerAdapter.Chapter() { image_id = Resource.Drawable.pigeons, level_count = 24, name = "pigeons", passed_count = Preferences.Get($"chapter 3 passed", -1) },
+                new ChapterPagerAdapter.Chapter() { image_id = Resource.Drawable.giraffe, level_count = 24, name = "giraffe", passed_count = Preferences.Get($"chapter 4 passed", -1) },
+                new ChapterPagerAdapter.Chapter() { image_id = Resource.Drawable.coala, level_count = 24, name = "coala", passed_count = Preferences.Get($"chapter 5 passed", -1) }
             };
 
             var chapters_pager = FindViewById<ViewPager>(Resource.Id.chapters_pager);

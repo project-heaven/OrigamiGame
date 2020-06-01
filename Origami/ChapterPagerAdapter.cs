@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Android.Content.Res;
 using Android.Runtime;
 using Android.Support.V4.View;
 using Android.Views;
@@ -49,12 +50,25 @@ namespace Origami
                     int global_chapter_id = i + position * chapter_ids.Length;
                     var chapter = chapter_screens[position].FindViewById<LinearLayout>(chapter_ids[i]);
 
-                    chapter.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
-                    chapter.Click += (s, e) => chapterSelect.ChapterSelected(global_chapter_id);
+                    var origami_image = chapter.FindViewById<ImageView>(Resource.Id.origami_image);
+                    origami_image.SetImageResource(chapters[global_chapter_id].image_id);
 
-                    chapter.FindViewById<ImageView>(Resource.Id.origami_image).SetImageResource(chapters[global_chapter_id].image_id);
-                    chapter.FindViewById<TextView>(Resource.Id.chapter_name).Text = chapters[global_chapter_id].name;
-                    chapter.FindViewById<TextView>(Resource.Id.chapter_progress).Text = $"{chapters[global_chapter_id].passed_count} / {chapters[global_chapter_id].level_count}";
+                    if (chapters[global_chapter_id].passed_count == -1)
+                    {
+                        chapter.FindViewById<LinearLayout>(Resource.Id.chapter_info).SetPadding(1000, 1000, 1000, 1000);
+                        origami_image.SetColorFilter(chapterSelect.Resources.GetColor(Resource.Color.origamiSampleGrayoutColor));
+                    }
+                    else
+                    {
+                        chapter.FindViewById<LinearLayout>(Resource.Id.chapter_info).SetPadding(0, 0, 0, 0);
+
+                        chapter.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
+                        chapter.Click += (s, e) => chapterSelect.ChapterSelected(global_chapter_id);
+                        
+                        chapter.FindViewById<TextView>(Resource.Id.chapter_name).Text = chapters[global_chapter_id].name;
+                        chapter.FindViewById<TextView>(Resource.Id.chapter_progress).Text = $"{chapters[global_chapter_id].passed_count} / {chapters[global_chapter_id].level_count}";
+                        chapter.FindViewById<ImageView>(Resource.Id.chapter_lock).SetImageResource(Resource.Drawable.transparent);
+                    }
                 }
             }
                 

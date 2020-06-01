@@ -7,6 +7,8 @@ namespace Origami
     {
         MediaPlayer ambientPlayer;
         MediaPlayer clickPlayer;
+        MediaPlayer losePlayer;
+        MediaPlayer winPlayer;
 
         public Audio(Context context)
         {
@@ -15,10 +17,24 @@ namespace Origami
             ambientPlayer.Start();
 
             clickPlayer = MediaPlayer.Create(context, Resource.Raw.click);
+            losePlayer = MediaPlayer.Create(context, Resource.Raw.lose);
+            winPlayer = MediaPlayer.Create(context, Resource.Raw.win);
         }
 
         bool mute_ambient = false;
-        bool mute_click = false;
+        bool mute_sfx = false;
+
+        public void PlayLose()
+        {
+            if (!mute_sfx)
+                losePlayer.Start();
+        }
+
+        public void PlayWin()
+        {
+            if (!mute_sfx)
+                winPlayer.Start();
+        }
 
         public void SetAmbientEnabled(bool enabled)
         {
@@ -29,9 +45,9 @@ namespace Origami
                 ambientPlayer.Start();
         }
 
-        public void SetClickEnabled(bool enabled)
+        public void SetSfxEnabled(bool enabled)
         {
-            mute_click = !enabled;
+            mute_sfx = !enabled;
         }
 
         public void ResumeAmbient()
@@ -47,7 +63,7 @@ namespace Origami
 
         public void PlayClick()
         {
-            if(!mute_click)
+            if(!mute_sfx)
                 clickPlayer.Start();
         }
     }

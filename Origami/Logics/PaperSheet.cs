@@ -79,10 +79,10 @@ namespace Origami.Logics
         public float GetCorrectPercent(Bitmap bitmap, LineSegment[] resultOutline)
         {
             int correct = 0;
-            int incorrect = 1;
+            int incorrect = 0;
 
-            for(float x = 0; x < 1; x += 0.02f)
-                for(float y = 0; y < 1; y += 0.02f)
+            for(float x = 0; x < 1; x += 0.015f)
+                for(float y = 0; y < 1; y += 0.015f)
                 {
                     int pixel_color = bitmap.GetPixel((int)(x * bitmap.Width), (int)(y * bitmap.Height));
 

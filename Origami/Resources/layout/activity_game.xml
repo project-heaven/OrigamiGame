@@ -1,5 +1,4 @@
-﻿
-<LinearLayout
+﻿<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
@@ -195,11 +194,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:gravity="center_horizontal"
             android:background="@drawable/roundedLeftCorners"
             android:backgroundTint="@color/baseColor">
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/level_number"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="level 1"
                 android:gravity="center"
@@ -217,6 +218,7 @@
             />
 
             <TextView
+                android:id="@+id/level_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="tortotoise"

@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.Content.Res;
-using Android.Media;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -15,7 +14,6 @@ namespace Origami
     public class MainMenuActivity : Activity
     {
         public static MainMenuActivity Instance;
-        public const string ad_id = "ca-app-pub-3940256099942544/5224354917"/*"ca-app-pub-3824185688302776~6278298542"*/;
         public LogicCore core;
         public static Audio audioPlayer;
 
@@ -56,7 +54,7 @@ namespace Origami
             sfx_button.Click += (s, e) =>
             {
                 sfx_enabled = !sfx_enabled;
-                audioPlayer.SetClickEnabled(sfx_enabled);
+                audioPlayer.SetSfxEnabled(sfx_enabled);
                 audioPlayer.PlayClick();
                 sfx_button.BackgroundTintList =
                 ColorStateList.ValueOf(Resources.GetColor(sfx_enabled ? Resource.Color.baseColor : Resource.Color.grayoutColor));
@@ -72,6 +70,8 @@ namespace Origami
                 return;
 
             Instance = this;
+
+            Ads.Init(this);
 
             core = new LogicCore();
             string levels_xml = new StreamReader(Assets.Open("levels.xml")).ReadToEnd();

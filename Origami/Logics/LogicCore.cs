@@ -13,8 +13,8 @@ namespace Origami.Logics
         int current_level = 0;
 
         public const float ONE_STAR_PERCENT = 0.90f;
-        public const float TWO_STARS_PERCENT = 0.925f;
-        public const float THREE_STARS_PERCENT = 0.95f;
+        public const float TWO_STARS_PERCENT = 0.95f;
+        public const float THREE_STARS_PERCENT = 0.99f;
 
         public int LevelCount()
         {
@@ -59,6 +59,16 @@ namespace Origami.Logics
             }
 
             levels[current_level].rating.stars = stars;
+
+            if(!Preferences.ContainsKey($"level {current_level} rating"))
+            {// first time level passing
+                int chapter = current_level / 24;
+                int curr_chapter_passed_count = Preferences.Get($"chapter {chapter} passed", 0) + 1;
+                Preferences.Set($"chapter {chapter} passed", curr_chapter_passed_count);
+                if (curr_chapter_passed_count == 24)
+                    Preferences.Set($"chapter {chapter + 1} passed", 0);
+            }
+
             Preferences.Set($"level {current_level} rating", stars);
 
             if (current_level != levels.Length - 1)
@@ -89,7 +99,7 @@ namespace Origami.Logics
 
             int i = 0;
             foreach (XmlElement level in levels_doc.DocumentElement)
-                levels[i++] = new Level(level);
+                levels[i++] = new Level(level, i);
 
             for (i = 0; i < levels.Length; i++)
                 if (Preferences.ContainsKey($"level {i} rating"))

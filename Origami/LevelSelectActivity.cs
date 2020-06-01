@@ -26,7 +26,7 @@ namespace Origami
             var back_button = FindViewById<ImageButton>(Resource.Id.back_button);
 
             back_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
-            back_button.Click += (s, e) => { StartActivity(typeof(MainMenuActivity)); };
+            back_button.Click += (s, e) => { StartActivity(typeof(ChapterSelectActivity)); };
         }
 
         void SetupLevelIcons()
