@@ -7,7 +7,6 @@
     android:background="@color/backgroundColor">
 
     <LinearLayout
-        android:clipToPadding="false"
         android:paddingLeft="19dp"
         android:paddingRight="6dp"
         android:layout_width="89dp"
@@ -16,9 +15,6 @@
 
         <ImageButton
             android:id="@+id/back_button"
-            android:elevation="@dimen/elevation"
-            android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
-            android:outlineSpotShadowColor="@color/basePointShadowColor"
             android:layout_width="match_parent"
             android:layout_height="77dp"
             android:background="@drawable/roundedBottomCorners"
@@ -108,7 +104,6 @@
 
         <android.support.v4.view.ViewPager
             android:overScrollMode="never"
-            android:clipToPadding="false"
             android:id="@+id/levels_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

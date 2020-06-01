@@ -15,14 +15,10 @@
         android:gravity="bottom"
         android:paddingLeft="19dp"
         android:paddingRight="19dp"
-        android:paddingBottom="19dp"
-        android:clipToPadding="false">
+        android:paddingBottom="19dp">
 
         <ImageButton
             android:id="@+id/music"
-            android:elevation="@dimen/elevation"
-            android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
-            android:outlineSpotShadowColor="@color/basePointShadowColor"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:src="@drawable/music"
@@ -37,9 +33,6 @@
 
         <ImageButton
             android:id="@+id/sfx"
-            android:elevation="@dimen/elevation"
-            android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
-            android:outlineSpotShadowColor="@color/basePointShadowColor"
             android:layout_marginLeft="19dp"
             android:layout_width="64dp"
             android:layout_height="64dp"
@@ -75,9 +68,6 @@
             android:gravity="center">
 
             <ImageButton
-                android:elevation="@dimen/elevation"
-                android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
-                android:outlineSpotShadowColor="@color/basePointShadowColor"
                 android:id="@+id/start_button"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
@@ -100,13 +90,9 @@
         android:orientation="vertical"
         android:paddingRight="19dp"
         android:paddingBottom="19dp"
-        android:paddingLeft="19dp"
-        android:clipToPadding="false">
+        android:paddingLeft="19dp">
 
         <TextView
-            android:elevation="@dimen/elevation"
-            android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
-            android:outlineSpotShadowColor="@color/basePointShadowColor"
             android:id="@+id/about_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -4,7 +4,6 @@
     android:paddingHorizontal="19dp"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:clipToPadding="false"
     android:paddingTop="6dp">
 
     <include layout="@layout/icon_chapter" android:id="@+id/chapter0"/>

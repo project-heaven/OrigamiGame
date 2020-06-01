@@ -3,13 +3,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false"
     android:clipChildren="false"
     android:paddingHorizontal="19dp"
     android:paddingVertical="19dp">
 
     <LinearLayout
-        android:clipToPadding="false"
         android:id="@+id/row0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,7 +47,6 @@
     />
 
     <LinearLayout
-        android:clipToPadding="false"
         android:id="@+id/row1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

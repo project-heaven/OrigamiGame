@@ -4,11 +4,7 @@
     android:layout_width="150dp"
     android:layout_height="match_parent"
     android:background="@drawable/roundedTopCorners"
-    android:backgroundTint="@color/secondaryColor"
-    android:elevation="@dimen/elevation"
-    android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
-    android:outlineSpotShadowColor="@color/basePointShadowColor"
-    android:clipToPadding="false">
+    android:backgroundTint="@color/secondaryColor">
 
     <LinearLayout 
         android:layout_width="150dp"

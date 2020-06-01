@@ -13,7 +13,6 @@
         android:paddingRight="19dp"
         android:layout_width="102dp"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
         android:orientation="vertical">
 
         <ImageButton
@@ -27,9 +26,6 @@
             android:tint="@color/iconColor"
             android:paddingHorizontal="12dp"
             android:paddingBottom="15dp"
-            android:elevation="@dimen/elevation"
-            android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
-            android:outlineSpotShadowColor="@color/basePointShadowColor"
         />
 
         <LinearLayout
@@ -38,13 +34,10 @@
             android:layout_weight="1"/>
 
         <LinearLayout
-            android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
-            android:outlineSpotShadowColor="@color/basePointShadowColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/roundedtopcorners"
             android:backgroundTint="@color/baseColor"
-            android:elevation="@dimen/elevation"
             android:orientation="vertical">
 
             <TextView
@@ -129,7 +122,6 @@
 
         <ImageView
             android:id="@+id/game_field"
-            android:src="@android:drawable/ic_menu_gallery"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
         />
@@ -140,8 +132,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="right"
-        android:clipToPadding="false">
+        android:gravity="right">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -153,10 +144,7 @@
             android:paddingLeft="7dp"
             android:paddingVertical="7dp"
             android:paddingRight="19dp"
-            android:gravity="center_vertical"
-            android:elevation="@dimen/elevation"
-            android:outlineAmbientShadowColor="@color/accentAmbientShadowColor"
-            android:outlineSpotShadowColor="@color/accentPointShadowColor">
+            android:gravity="center_vertical">
 
             <ImageButton
                 android:id="@+id/help"
@@ -184,9 +172,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:elevation="@dimen/elevation"
-            android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
-            android:outlineSpotShadowColor="@color/basePointShadowColor"
             android:layout_marginTop="19dp"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
@@ -235,7 +220,6 @@
         />
 
         <LinearLayout
-            android:clipToPadding="false"
             android:paddingTop="6dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -245,9 +229,6 @@
             android:gravity="right">
 
             <ImageButton
-                android:elevation="@dimen/elevation"
-                android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
-                android:outlineSpotShadowColor="@color/basePointShadowColor"
                 android:id="@+id/restart"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
@@ -267,9 +248,6 @@
             />
 
             <ImageButton
-                android:elevation="@dimen/elevation"
-                android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
-                android:outlineSpotShadowColor="@color/basePointShadowColor"
                 android:id="@+id/undo"
                 android:layout_width="64dp"
                 android:layout_height="64dp"

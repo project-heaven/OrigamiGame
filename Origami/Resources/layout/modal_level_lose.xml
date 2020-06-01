@@ -7,14 +7,10 @@
     >
 
     <LinearLayout
-        android:elevation="@dimen/elevation"
-        android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
-        android:outlineSpotShadowColor="@color/basePointShadowColor"
         android:layout_width="155dp"
         android:layout_height="155dp"
         android:orientation="vertical"
-        android:background="@drawable/roundedCorners"
-        android:backgroundTint="@color/baseColor">
+        android:background="@drawable/roundedBaseColorCornersOutlined">
 
         <TextView
             android:layout_width="match_parent"

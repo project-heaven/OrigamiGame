@@ -14,6 +14,8 @@ namespace Origami
         public static ChapterSelectActivity Instance;
         public static int selected_chapter;
 
+        static int start_scroll_offset = 0;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             Instance = this;
@@ -46,13 +48,30 @@ namespace Origami
             var chapters_pager = FindViewById<ViewPager>(Resource.Id.chapters_pager);
             chapters_pager.Adapter = new ChapterPagerAdapter(this, this);
             chapters_pager.ScrollChange += ScrollChange;
+
+            if (Preferences.ContainsKey("chapter 3 passed"))
+                start_scroll_offset = 1;
+            else
+                start_scroll_offset = 0;
+
+            UpdateScroll(start_scroll_offset);
+
+            chapters_pager.SetCurrentItem(start_scroll_offset, false);     
         }
 
         private void ScrollChange(object sender, View.ScrollChangeEventArgs e)
         {
             float scroll_x_norm = e.ScrollX / (float)e.V.Width;
 
-            if(scroll_x_norm > 0.5f)
+            if (scroll_x_norm - start_scroll_offset > 0.5f)
+                UpdateScroll(1);
+            else
+                UpdateScroll(0);
+        }
+
+        void UpdateScroll(int position)
+        {
+            if (position == 1)
             {
                 FindViewById<LinearLayout>(Resource.Id.screen_selected0).SetBackgroundResource(Resource.Drawable.transparent);
                 FindViewById<LinearLayout>(Resource.Id.screen_selected1).SetBackgroundResource(Resource.Drawable.roundedCorners);
