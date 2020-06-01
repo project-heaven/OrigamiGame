@@ -16,8 +16,10 @@ namespace Origami
 
             SetContentView(Resource.Layout.activity_about);
 
-            FindViewById<ImageButton>(Resource.Id.back_button).Click
-            += (s, e) => { StartActivity(typeof(MainMenuActivity)); };
+            var back_button = FindViewById<ImageButton>(Resource.Id.back_button);
+
+            back_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
+            back_button.Click += (s, e) => { StartActivity(typeof(MainMenuActivity)); };
         }
     }
 }

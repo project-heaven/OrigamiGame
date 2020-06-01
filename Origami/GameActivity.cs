@@ -36,11 +36,20 @@ namespace Origami
             game_field.Post(new System.Action(() =>
                 MainMenuActivity.Instance.core.CurrentLevel().ResetAndRefresh()));
 
-            FindViewById<ImageButton>(Resource.Id.back_button).Click += (s, e) => StartActivity(typeof(LevelSelectActivity));
+            var back_button = FindViewById<ImageButton>(Resource.Id.back_button);
+            var help_button = FindViewById<ImageButton>(Resource.Id.help);
+            var undo_button = FindViewById<ImageButton>(Resource.Id.undo);
+            var restart_button = FindViewById<ImageButton>(Resource.Id.restart);
 
-            FindViewById<ImageButton>(Resource.Id.help).Click += (s, e) => Help();
-            FindViewById<ImageButton>(Resource.Id.undo).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().Undo();
-            FindViewById<ImageButton>(Resource.Id.restart).Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().ResetAndRefresh();
+            back_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
+            help_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
+            undo_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
+            restart_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
+
+            back_button.Click += (s, e) => StartActivity(typeof(LevelSelectActivity));
+            help_button.Click += (s, e) => Help();
+            undo_button.Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().Undo();
+            restart_button.Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().ResetAndRefresh();
 
             int hints = Preferences.Get("hints", DEFAULT_HINTS);
             FindViewById<TextView>(Resource.Id.help_count).Text = hints.ToString();
@@ -62,7 +71,12 @@ namespace Origami
         void OpenNoHints()
         {
             View no_hints_view = LayoutInflater.Inflate(Resource.Layout.modal_no_hints, null);
-            no_hints_view.FindViewById<ImageButton>(Resource.Id.show_ads).Click += (s, e) => Ads.ShowAds(this);
+
+            var show_ads_button = no_hints_view.FindViewById<ImageButton>(Resource.Id.show_ads);
+
+            show_ads_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
+            show_ads_button.Click += (s, e) => Ads.ShowAds(this);
+
             var display_info = DeviceDisplay.MainDisplayInfo;
             AddContentView(no_hints_view, new ViewGroup.LayoutParams((int)display_info.Width, (int)display_info.Height));
 
@@ -126,14 +140,20 @@ namespace Origami
 
             View lvl_fail_view = LayoutInflater.Inflate(Resource.Layout.modal_level_lose, null);
 
-            lvl_fail_view.FindViewById<ImageButton>(Resource.Id.back).Click += (s, e) =>
+            var back_button = lvl_fail_view.FindViewById<ImageButton>(Resource.Id.back);
+            var restart_button = lvl_fail_view.FindViewById<ImageButton>(Resource.Id.restart);
+
+            back_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
+            restart_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
+
+            back_button.Click += (s, e) =>
             {
                 SetButtonsEnabled(true);
                 ((ViewGroup)lvl_fail_view.Parent).RemoveView(lvl_fail_view);
                 StartActivity(typeof(LevelSelectActivity));
             };
 
-            lvl_fail_view.FindViewById<ImageButton>(Resource.Id.restart).Click += (s, e) =>
+            restart_button.Click += (s, e) =>
             {
                 SetButtonsEnabled(true);
                 ((ViewGroup)lvl_fail_view.Parent).RemoveView(lvl_fail_view);
@@ -158,7 +178,11 @@ namespace Origami
             {
                 lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.modal_level_end, null);
 
-                lvl_complete_view.FindViewById<ImageButton>(Resource.Id.next).Click += (s, e) =>
+                var next_button = lvl_complete_view.FindViewById<ImageButton>(Resource.Id.next);
+
+                next_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
+
+                next_button.Click += (s, e) =>
                 {
                     MainMenuActivity.Instance.core.NextLevel();
                     SetButtonsEnabled(true);
@@ -189,14 +213,20 @@ namespace Origami
             else
                 star_2.SetImageDrawable(Resources.GetDrawable(Resource.Drawable.transparent));
 
-            lvl_complete_view.FindViewById<ImageButton>(Resource.Id.back).Click += (s, e) => 
+            var back_button = lvl_complete_view.FindViewById<ImageButton>(Resource.Id.back);
+            var restart_button = lvl_complete_view.FindViewById<ImageButton>(Resource.Id.restart);
+
+            back_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
+            restart_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
+
+            back_button.Click += (s, e) =>
             {
                 SetButtonsEnabled(true);
                 ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
                 StartActivity(typeof(LevelSelectActivity));
             };
 
-            lvl_complete_view.FindViewById<ImageButton>(Resource.Id.restart).Click += (s, e) =>
+            restart_button.Click += (s, e) =>
             {
                 SetButtonsEnabled(true);
                 ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);

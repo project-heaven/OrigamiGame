@@ -16,5 +16,5 @@
     <color name="accentPointShadowColor">@android:color/black</color>
     <color name="accentAmbientShadowColor">#FDCB9E</color>
 
-    <color name="shadowColor">#AAAAAA</color>
+    <color name="grayoutColor">#88977F</color>
 </resources>

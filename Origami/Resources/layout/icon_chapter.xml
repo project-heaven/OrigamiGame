@@ -17,7 +17,6 @@
 
         <ImageView
             android:id="@+id/origami_image"
-            android:src="@drawable/origami_sample"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:scaleType="fitCenter"    
@@ -61,4 +60,3 @@
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
-

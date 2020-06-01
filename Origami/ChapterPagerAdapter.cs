@@ -48,7 +48,10 @@ namespace Origami
                 {
                     int global_chapter_id = i + position * chapter_ids.Length;
                     var chapter = chapter_screens[position].FindViewById<LinearLayout>(chapter_ids[i]);
+
+                    chapter.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
                     chapter.Click += (s, e) => chapterSelect.ChapterSelected(global_chapter_id);
+
                     chapter.FindViewById<ImageView>(Resource.Id.origami_image).SetImageResource(chapters[global_chapter_id].image_id);
                     chapter.FindViewById<TextView>(Resource.Id.chapter_name).Text = chapters[global_chapter_id].name;
                     chapter.FindViewById<TextView>(Resource.Id.chapter_progress).Text = $"{chapters[global_chapter_id].passed_count} / {chapters[global_chapter_id].level_count}";

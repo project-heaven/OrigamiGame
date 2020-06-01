@@ -19,6 +19,7 @@
         android:clipToPadding="false">
 
         <ImageButton
+            android:id="@+id/music"
             android:elevation="@dimen/elevation"
             android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
             android:outlineSpotShadowColor="@color/basePointShadowColor"
@@ -35,6 +36,7 @@
         />
 
         <ImageButton
+            android:id="@+id/sfx"
             android:elevation="@dimen/elevation"
             android:outlineAmbientShadowColor="@color/baseAmbientShadowColor"
             android:outlineSpotShadowColor="@color/basePointShadowColor"

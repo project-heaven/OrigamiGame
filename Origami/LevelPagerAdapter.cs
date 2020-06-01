@@ -44,6 +44,7 @@ namespace Origami
                         var row_layout = level_screens[position].FindViewById<LinearLayout>(row_ids[row]);
                         var level_layout = row_layout.FindViewById<AbsoluteLayout>(level_ids[level]);
 
+                        level_layout.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
                         level_layout.Click += (s, e) => { levelSelect.LevelSelected(global_level_id); };
 
                         level_layout.FindViewById<TextView>(Resource.Id.level_number).Text = $"level {global_level_id + 1}";

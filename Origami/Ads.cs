@@ -13,6 +13,7 @@ namespace Origami
         {
             public override void OnRewardedAdLoaded()
             {
+                MainMenuActivity.audioPlayer.PauseAmbient();
                 rewardedAd.Show(rewardedAdsActivity, new RewardAdCallback());
             }
 
@@ -34,7 +35,9 @@ namespace Origami
 
             public override void OnRewardedAdClosed()
             {
-                if(!was_earned_reward)
+                MainMenuActivity.audioPlayer.ResumeAmbient();
+
+                if (!was_earned_reward)
                     GameActivity.Instance.AdState = GameActivity.RewardAdState.FAIILED;
 
                 was_earned_reward = false;
@@ -42,6 +45,7 @@ namespace Origami
 
             public override void OnRewardedAdFailedToShow(int p0)
             {
+                MainMenuActivity.audioPlayer.ResumeAmbient();
                 GameActivity.Instance.AdState = GameActivity.RewardAdState.FAIILED;
             }
         }

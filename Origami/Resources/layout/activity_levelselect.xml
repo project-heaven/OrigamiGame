@@ -40,21 +40,75 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/somatic_rounded"
-                android:text="Eagle - 2/16"
-                android:textSize="18dp"
+            
+            <AbsoluteLayout
+                android:layout_width="84dp"
+                android:layout_height="22dp"
+                android:layout_marginVertical="25dp"
                 android:background="@drawable/roundedCorners"
-                android:backgroundTint="@color/baseColor"
-                android:paddingVertical="4dp"
-                android:paddingHorizontal="16dp"
-                android:textColor="@color/textColor"/>
+                android:backgroundTint="@color/secondaryColor">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/screen_selected0"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:background="@drawable/roundedCorners"
+                    android:backgroundTint="@color/baseColor"
+                />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/screen_selected1"
+                    android:layout_x="31dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:background="@drawable/transparent"
+                    android:backgroundTint="@color/baseColor"
+                />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/screen_selected2"
+                    android:layout_x="62dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:background="@drawable/transparent"
+                    android:backgroundTint="@color/baseColor"
+                />
+
+                <LinearLayout
+                    android:layout_x="5.5dp"
+                    android:layout_y="5.5dp"
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:background="@drawable/roundedCorners"
+                    android:backgroundTint="@color/thirdColor"
+                />
+
+                <LinearLayout
+                    android:layout_x="36.5dp"
+                    android:layout_y="5.5dp"
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:background="@drawable/roundedCorners"
+                    android:backgroundTint="@color/thirdColor"
+                />
+
+                <LinearLayout
+                    android:layout_x="67.5dp"
+                    android:layout_y="5.5dp"
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:background="@drawable/roundedCorners"
+                    android:backgroundTint="@color/thirdColor"
+                />
+            </AbsoluteLayout>
         </LinearLayout>
 
         <android.support.v4.view.ViewPager
+            android:overScrollMode="never"
+            android:clipToPadding="false"
             android:id="@+id/levels_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
