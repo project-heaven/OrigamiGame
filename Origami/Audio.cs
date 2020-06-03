@@ -9,6 +9,7 @@ namespace Origami
         MediaPlayer clickPlayer;
         MediaPlayer losePlayer;
         MediaPlayer winPlayer;
+        MediaPlayer scrollPlayer;
 
         public Audio(Context context)
         {
@@ -19,10 +20,17 @@ namespace Origami
             clickPlayer = MediaPlayer.Create(context, Resource.Raw.click);
             losePlayer = MediaPlayer.Create(context, Resource.Raw.lose);
             winPlayer = MediaPlayer.Create(context, Resource.Raw.win);
+            scrollPlayer = MediaPlayer.Create(context, Resource.Raw.scroll);
         }
 
         bool mute_ambient = false;
         bool mute_sfx = false;
+
+        public void PlayScroll()
+        {
+            if (!mute_sfx)
+                scrollPlayer.Start();
+        }
 
         public void PlayLose()
         {

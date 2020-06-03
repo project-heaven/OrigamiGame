@@ -4468,7 +4468,10 @@ namespace Origami
 			public const int lose = 2131623938;
 			
 			// aapt resource value: 0x7F0E0003
-			public const int win = 2131623939;
+			public const int scroll = 2131623939;
+			
+			// aapt resource value: 0x7F0E0004
+			public const int win = 2131623940;
 			
 			static Raw()
 			{

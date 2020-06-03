@@ -81,12 +81,12 @@ namespace Origami.Logics
             int correct = 0;
             int incorrect = 0;
 
-            for(float x = 0; x < 1; x += 0.015f)
-                for(float y = 0; y < 1; y += 0.015f)
+            for (float x = 0; x < 1; x += 0.01f)
+                for (float y = 0; y < 1; y += 0.01f)
                 {
                     int pixel_color = bitmap.GetPixel((int)(x * bitmap.Width), (int)(y * bitmap.Height));
 
-                    bool sheet_covered = pixel_color != 0 && Color.GetGreenComponent(pixel_color) != OutlineColor.G;
+                    bool sheet_covered = pixel_color != 0;
                     bool should_be_inside = PointInsideOutline(new Vector2(x, y), resultOutline);
 
                     if ((sheet_covered & !should_be_inside) || (!sheet_covered & should_be_inside))
@@ -100,7 +100,7 @@ namespace Origami.Logics
 
         bool PointInsideOutline(Vector2 point, LineSegment[] outline)
         {
-            LineSegment ray = new LineSegment(point, point + new Vector2(100, 0));
+            LineSegment ray = new LineSegment(point, point + new Vector2(2, 0));
 
             int intersections = 0;
 

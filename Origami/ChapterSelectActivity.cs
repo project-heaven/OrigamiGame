@@ -54,6 +54,8 @@ namespace Origami
             else
                 start_scroll_offset = 0;
 
+            last_screen = start_scroll_offset;
+
             UpdateScroll(start_scroll_offset);
 
             chapters_pager.SetCurrentItem(start_scroll_offset, false);     
@@ -63,14 +65,22 @@ namespace Origami
         {
             float scroll_x_norm = e.ScrollX / (float)e.V.Width;
 
-            if (scroll_x_norm - start_scroll_offset > 0.5f)
+            if (scroll_x_norm + start_scroll_offset > 0.5f)
                 UpdateScroll(1);
             else
                 UpdateScroll(0);
         }
 
+        static int last_screen;
+
         void UpdateScroll(int position)
         {
+            if(position != last_screen)
+            {
+                last_screen = position;
+                MainMenuActivity.audioPlayer.PlayScroll();
+            }
+
             if (position == 1)
             {
                 FindViewById<LinearLayout>(Resource.Id.screen_selected0).SetBackgroundResource(Resource.Drawable.transparent);

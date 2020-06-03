@@ -267,9 +267,7 @@ namespace Origami.Logics
         public void RenderField(ImageView image_view)
         {
             if(field_bitmap == null)
-            {
                 field_bitmap = Bitmap.CreateBitmap(image_view.Width, image_view.Height, Bitmap.Config.Argb8888);
-            }
 
             field_bitmap.EraseColor(0);
 
@@ -277,7 +275,7 @@ namespace Origami.Logics
 
             FoldedSheet.Render(canvas);
 
-            last_bitmap = field_bitmap;
+            last_bitmap = Bitmap.CreateBitmap(field_bitmap);
 
             RenderResultOutline(canvas);
 

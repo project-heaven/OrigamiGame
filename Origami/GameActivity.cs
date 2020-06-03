@@ -16,7 +16,7 @@ namespace Origami
 
         ImageView game_field;
 
-        public const int DEFAULT_HINTS = 5;
+        public const int DEFAULT_HINTS = 5000;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -134,13 +134,15 @@ namespace Origami
             } 
         }
 
-        public void LevelFailed()
+        public void LevelFailed(int level)
         {
             MainMenuActivity.audioPlayer.PlayLose();
 
             SetButtonsEnabled(false);
 
             View lvl_fail_view = LayoutInflater.Inflate(Resource.Layout.modal_level_lose, null);
+
+            lvl_fail_view.FindViewById<TextView>(Resource.Id.level_name).Text = $"Level {level + 1}";
 
             var back_button = lvl_fail_view.FindViewById<ImageButton>(Resource.Id.back);
             var restart_button = lvl_fail_view.FindViewById<ImageButton>(Resource.Id.restart);
@@ -167,9 +169,9 @@ namespace Origami
         }
 
         static int interestial_counter = 0;
-        const int interestial_rate = 5;
+        const int interestial_rate = 4;
 
-        public void LevelCompleted(int stars, bool last_level)
+        public void LevelCompleted(int level, int stars, bool last_level)
         {
             interestial_counter++;
             if (interestial_counter >= interestial_rate)
@@ -182,16 +184,12 @@ namespace Origami
 
             SetButtonsEnabled(false);
 
-            View lvl_complete_view;
+            View lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.modal_level_end, null); ;
 
-            if(last_level)
-            {
-                lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.modal_level_end, null);
-            }
-            else
-            {
-                lvl_complete_view = LayoutInflater.Inflate(Resource.Layout.modal_level_end, null);
+            lvl_complete_view.FindViewById<TextView>(Resource.Id.level_number).Text = $"Level {level + 1}";
 
+            if(!last_level)
+            {
                 var next_button = lvl_complete_view.FindViewById<ImageButton>(Resource.Id.next);
 
                 next_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();

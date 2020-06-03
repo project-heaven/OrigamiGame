@@ -44,7 +44,7 @@ namespace Origami.Logics
         { 
             float rating = Level.GetCorrectPercent();
 
-            int stars = 0;
+            int stars;
 
             if (rating >= THREE_STARS_PERCENT)
                 stars = 3;
@@ -54,13 +54,13 @@ namespace Origami.Logics
                 stars = 1;
             else
             {
-                GameActivity.Instance.LevelFailed();
+                GameActivity.Instance.LevelFailed(current_level);
                 return;
             }
 
             levels[current_level].rating.stars = stars;
 
-            if(!Preferences.ContainsKey($"level {current_level} rating"))
+            if(Preferences.Get($"level {current_level} rating", 0) == 0)
             {// first time level passing
                 int chapter = current_level / 24;
                 int curr_chapter_passed_count = Preferences.Get($"chapter {chapter} passed", 0) + 1;
@@ -77,7 +77,7 @@ namespace Origami.Logics
                 Preferences.Set($"level {current_level + 1} rating", 0);
             }
 
-            GameActivity.Instance.LevelCompleted(stars, current_level == levels.Length - 1);
+            GameActivity.Instance.LevelCompleted(current_level, stars, current_level == levels.Length - 1);
         }
 
         public Level CurrentLevel()

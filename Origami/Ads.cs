@@ -26,6 +26,7 @@ namespace Origami
         static void InterestitialClosed(object sender, System.EventArgs e)
         {
             MainMenuActivity.audioPlayer.ResumeAmbient();
+            interestitialAd.LoadAd(new AdRequest.Builder().Build());
         }
 
         public static void ShowInterestitial()
@@ -35,8 +36,8 @@ namespace Origami
                 MainMenuActivity.audioPlayer.PauseAmbient();
                 interestitialAd.Show();
             }
-
-            interestitialAd.LoadAd(new AdRequest.Builder().Build());
+            else
+                interestitialAd.LoadAd(new AdRequest.Builder().Build());
         }
 
         class RewardAdLoadCallback : RewardedAdLoadCallback

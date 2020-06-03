@@ -34,6 +34,7 @@ namespace Origami
                 level_screen_to_show++;
 
             start_scroll_offset = level_screen_to_show;
+            last_scroll = start_scroll_offset;
             level_pager.SetCurrentItem(level_screen_to_show, false);
             UpdateScroll(level_screen_to_show);
 
@@ -43,18 +44,28 @@ namespace Origami
             back_button.Click += (s, e) => { StartActivity(typeof(ChapterSelectActivity)); };
         }
 
+        static int last_scroll;
+
         private void ScrollChange(object sender, View.ScrollChangeEventArgs e)
         {
             float scroll_x_norm = e.ScrollX / ((float)e.V.Width * 2);
             int visible_screen = (int)(scroll_x_norm * 3.0f);
 
             visible_screen += start_scroll_offset;
+            if (visible_screen < 0)
+                visible_screen = 0;
 
             UpdateScroll(visible_screen);
         }
 
         void UpdateScroll(int position)
         {
+            if(position != last_scroll)
+            {
+                last_scroll = position;
+                MainMenuActivity.audioPlayer.PlayScroll();
+            }
+
             int[] level_selected_view_ids = new int[] { Resource.Id.screen_selected0, Resource.Id.screen_selected1, Resource.Id.screen_selected2 };
 
             if (position >= level_selected_view_ids.Length)

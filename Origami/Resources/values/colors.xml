@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="baseColor">#CCEABB</color> 
-    <color name="sheetColor">#333F3F44</color>
-    
-    <color name="secondaryColor">#E9F1E5</color>
-  
-    <color name="resultOutlineColor">#86B16D</color>
-    <color name="thirdColor">#86B16D</color>
-  
-    <color name="backgroundColor">#E5E5E5</color>
-  
-    <color name="accentColor">#FDCB9E</color>
+  <color name="baseColor">#CCEABB</color>
+  <color name="sheetColor">#55B8DDA1</color>
 
-    <color name="iconColor">#3F3F44</color>
-    <color name="textColor">#3F3F44</color>
-  
-    <color name="grayoutColor">#88977F</color>
-    <color name="origamiSampleGrayoutColor">#555555</color>
+  <color name="secondaryColor">#E9F1E5</color>
+
+  <color name="resultOutlineColor">#86B16D</color>
+  <color name="thirdColor">#86B16D</color>
+
+  <color name="backgroundColor">#E5E5E5</color>
+
+  <color name="accentColor">#FDCB9E</color>
+
+  <color name="iconColor">#3F3F44</color>
+  <color name="textColor">#3F3F44</color>
+
+  <color name="grayoutColor">#88977F</color>
+  <color name="origamiSampleGrayoutColor">#555555</color>
 </resources>

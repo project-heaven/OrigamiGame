@@ -166,7 +166,7 @@ namespace Origami.Logics
             float t1 = passThrough.y - k1 * passThrough.x;
             float t2 = line.passThrough.y - k2 * line.passThrough.x;
 
-            if (float.IsInfinity(k1))
+            if (k1 > 1000 || k1 < -1000) // Appliable in this case.
             {
                 // Means that this line is vertical
                 intersection.x = passThrough.x;
@@ -174,7 +174,7 @@ namespace Origami.Logics
                 return intersection;
             }
 
-            if (float.IsInfinity(k2))
+            if (k2 > 1000 || k2 < -1000) // Appliable in this case.
             {
                 // Means that passed line is vertical
                 intersection.x = line.passThrough.x;
