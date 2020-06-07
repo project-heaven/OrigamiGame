@@ -12,9 +12,9 @@ namespace Origami.Logics
 
         int current_level = 0;
 
-        public const float ONE_STAR_PERCENT = 0.90f;
-        public const float TWO_STARS_PERCENT = 0.95f;
-        public const float THREE_STARS_PERCENT = 0.99f;
+        public const float ONE_STAR_PERCENT = 0.83f;
+        public const float TWO_STARS_PERCENT = 0.90f;
+        public const float THREE_STARS_PERCENT = 0.95f;
 
         public int LevelCount()
         {
@@ -58,9 +58,7 @@ namespace Origami.Logics
                 return;
             }
 
-            levels[current_level].rating.stars = stars;
-
-            if(Preferences.Get($"level {current_level} rating", 0) == 0)
+            if (levels[current_level].rating.stars == 0)
             {// first time level passing
                 int chapter = current_level / 24;
                 int curr_chapter_passed_count = Preferences.Get($"chapter {chapter} passed", 0) + 1;
@@ -69,11 +67,14 @@ namespace Origami.Logics
                     Preferences.Set($"chapter {chapter + 1} passed", 0);
             }
 
+            levels[current_level].rating.stars = stars;
+
             Preferences.Set($"level {current_level} rating", stars);
 
             if (current_level != levels.Length - 1)
             {
                 levels[current_level + 1].rating.unlocked = true;
+                levels[current_level + 1].rating.stars = 0;
                 Preferences.Set($"level {current_level + 1} rating", 0);
             }
 
@@ -106,9 +107,11 @@ namespace Origami.Logics
                     levels[i].rating = new Level.LevelRating()
                     { stars = Preferences.Get($"level {i} rating", 0), unlocked = true };
                 else
-                    levels[i].rating = new Level.LevelRating() { stars = 0, unlocked = false };
+                    levels[i].rating = new Level.LevelRating() { stars = -1, unlocked = false };
 
             levels[0].rating.unlocked = true;
+            if (levels[0].rating.stars == -1)
+                levels[0].rating.stars = 0;
         }
 
         public Level.LevelRating GetLevelRating(int level)

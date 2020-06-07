@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
+using Java.Lang;
 using Xamarin.Essentials;
 
 namespace Origami
@@ -13,7 +14,7 @@ namespace Origami
     {
         public static LevelSelectActivity Instance;
 
-        static int start_scroll_offset = 0;
+        static int start_scroll_offset = -1;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -27,16 +28,20 @@ namespace Origami
             var level_pager = FindViewById<ViewPager>(Resource.Id.levels_pager);
             level_pager.Adapter = new LevelPagerAdapter(this, this);
             level_pager.ScrollChange += ScrollChange;
-            int level_screen_to_show = 0;
-            if (Preferences.ContainsKey($"level {8 + ChapterSelectActivity.selected_chapter * 24} rating"))
-                level_screen_to_show++;
-            if (Preferences.ContainsKey($"level {16 + ChapterSelectActivity.selected_chapter * 24} rating"))
-                level_screen_to_show++;
 
-            start_scroll_offset = level_screen_to_show;
-            last_scroll = start_scroll_offset;
-            level_pager.SetCurrentItem(level_screen_to_show, false);
-            UpdateScroll(level_screen_to_show);
+            if (start_scroll_offset == -1)
+            {
+                start_scroll_offset = 0;
+                if (Preferences.ContainsKey($"level {8 + ChapterSelectActivity.selected_chapter * 24} rating"))
+                    start_scroll_offset++;
+                if (Preferences.ContainsKey($"level {16 + ChapterSelectActivity.selected_chapter * 24} rating"))
+                    start_scroll_offset++;
+            }          
+            else
+                start_scroll_offset = last_scroll;
+
+            UpdateScrollDots(start_scroll_offset);
+            level_pager.SetCurrentItem(start_scroll_offset, false);
 
             var back_button = FindViewById<ImageButton>(Resource.Id.back_button);
 
@@ -48,8 +53,8 @@ namespace Origami
 
         private void ScrollChange(object sender, View.ScrollChangeEventArgs e)
         {
-            float scroll_x_norm = e.ScrollX / ((float)e.V.Width * 2);
-            int visible_screen = (int)(scroll_x_norm * 3.0f);
+            float scroll_x_norm = e.ScrollX / ((float)e.V.Width);
+            int visible_screen = Math.Round(scroll_x_norm);
 
             visible_screen += start_scroll_offset;
             if (visible_screen < 0)
@@ -58,14 +63,8 @@ namespace Origami
             UpdateScroll(visible_screen);
         }
 
-        void UpdateScroll(int position)
+        void UpdateScrollDots(int position)
         {
-            if(position != last_scroll)
-            {
-                last_scroll = position;
-                MainMenuActivity.audioPlayer.PlayScroll();
-            }
-
             int[] level_selected_view_ids = new int[] { Resource.Id.screen_selected0, Resource.Id.screen_selected1, Resource.Id.screen_selected2 };
 
             if (position >= level_selected_view_ids.Length)
@@ -76,6 +75,17 @@ namespace Origami
                 var view = FindViewById<LinearLayout>(level_selected_view_ids[i]);
                 view.SetBackgroundResource(i == position ? Resource.Drawable.roundedCorners : Resource.Drawable.transparent);
             }
+        }
+
+        void UpdateScroll(int position)
+        {
+            if(position != last_scroll)
+            {
+                last_scroll = position;
+                MainMenuActivity.audioPlayer.PlayScroll();
+            }
+
+            UpdateScrollDots(position);
         }
 
         public void LevelSelected(int level)

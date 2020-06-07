@@ -14,7 +14,7 @@ namespace Origami
         public static ChapterSelectActivity Instance;
         public static int selected_chapter;
 
-        static int start_scroll_offset = 0;
+        static int start_scroll_offset = -1;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -49,16 +49,18 @@ namespace Origami
             chapters_pager.Adapter = new ChapterPagerAdapter(this, this);
             chapters_pager.ScrollChange += ScrollChange;
 
-            if (Preferences.ContainsKey("chapter 3 passed"))
-                start_scroll_offset = 1;
+            if (start_scroll_offset == -1)
+            {
+                if (Preferences.ContainsKey("chapter 3 passed"))
+                    start_scroll_offset = 1;
+                else
+                    start_scroll_offset = 0;
+            }
             else
-                start_scroll_offset = 0;
+                start_scroll_offset = last_screen;
 
-            last_screen = start_scroll_offset;
-
-            UpdateScroll(start_scroll_offset);
-
-            chapters_pager.SetCurrentItem(start_scroll_offset, false);     
+            UpdateScrollDots(start_scroll_offset);
+            chapters_pager.SetCurrentItem(start_scroll_offset, false);
         }
 
         private void ScrollChange(object sender, View.ScrollChangeEventArgs e)
@@ -73,14 +75,8 @@ namespace Origami
 
         static int last_screen;
 
-        void UpdateScroll(int position)
+        void UpdateScrollDots(int position)
         {
-            if(position != last_screen)
-            {
-                last_screen = position;
-                MainMenuActivity.audioPlayer.PlayScroll();
-            }
-
             if (position == 1)
             {
                 FindViewById<LinearLayout>(Resource.Id.screen_selected0).SetBackgroundResource(Resource.Drawable.transparent);
@@ -91,6 +87,17 @@ namespace Origami
                 FindViewById<LinearLayout>(Resource.Id.screen_selected0).SetBackgroundResource(Resource.Drawable.roundedCorners);
                 FindViewById<LinearLayout>(Resource.Id.screen_selected1).SetBackgroundResource(Resource.Drawable.transparent);
             }
+        }
+
+        void UpdateScroll(int position)
+        {
+            if(position != last_screen)
+            {
+                last_screen = position;
+                MainMenuActivity.audioPlayer.PlayScroll();
+            }
+
+            UpdateScrollDots(position);
         }
 
         public void ChapterSelected(int chapter)

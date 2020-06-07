@@ -67,8 +67,9 @@
 
                 <ImageView
                     android:id="@+id/chapter_lock"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/lock"
                     android:tint="@color/iconColor"
                 />

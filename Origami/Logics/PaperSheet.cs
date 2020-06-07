@@ -81,8 +81,8 @@ namespace Origami.Logics
             int correct = 0;
             int incorrect = 0;
 
-            for (float x = 0; x < 1; x += 0.01f)
-                for (float y = 0; y < 1; y += 0.01f)
+            for (float x = 0; x < 1; x += 0.015f)
+                for (float y = 0; y < 1; y += 0.015f)
                 {
                     int pixel_color = bitmap.GetPixel((int)(x * bitmap.Width), (int)(y * bitmap.Height));
 
@@ -91,7 +91,7 @@ namespace Origami.Logics
 
                     if ((sheet_covered & !should_be_inside) || (!sheet_covered & should_be_inside))
                         incorrect++;
-                    else
+                    else if(should_be_inside)
                         correct++;
                 }
 

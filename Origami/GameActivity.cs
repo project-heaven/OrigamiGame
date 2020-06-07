@@ -16,7 +16,7 @@ namespace Origami
 
         ImageView game_field;
 
-        public const int DEFAULT_HINTS = 5000;
+        public const int DEFAULT_HINTS = 150;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {

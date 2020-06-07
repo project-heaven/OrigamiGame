@@ -21,19 +21,6 @@ namespace Origami
 
             back_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
             back_button.Click += (s, e) => { StartActivity(typeof(MainMenuActivity)); };
-
-            FindViewById<Button>(Resource.Id.dbgg).Click += (s, e) => 
-            {
-                for (int i = 0; i < 144; i++)
-                    Preferences.Set($"level {i} rating", 3);
-
-                Preferences.Set($"chapter 0 passed", 24);
-                Preferences.Set($"chapter 1 passed", 24);
-                Preferences.Set($"chapter 2 passed", 24);
-                Preferences.Set($"chapter 3 passed", 24);
-                Preferences.Set($"chapter 4 passed", 24);
-                Preferences.Set($"chapter 5 passed", 24);
-            };
         }
     }
 }

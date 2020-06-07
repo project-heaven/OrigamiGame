@@ -275,7 +275,13 @@ namespace Origami.Logics
 
             FoldedSheet.Render(canvas);
 
-            last_bitmap = Bitmap.CreateBitmap(field_bitmap);
+            if (last_bitmap == null)
+                last_bitmap = Bitmap.CreateBitmap(field_bitmap);
+            else
+            {
+                last_bitmap.EraseColor(0);
+                FoldedSheet.Render(new Canvas(last_bitmap));
+            }
 
             RenderResultOutline(canvas);
 
