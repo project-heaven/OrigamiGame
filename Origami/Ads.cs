@@ -7,8 +7,8 @@ namespace Origami
 {
     public static class Ads
     {
-        const string interstial_id = "ca-app-pub-3940256099942544/1033173712";
-        const string rewarded_id = "ca-app-pub-3940256099942544/5224354917";
+        const string interstial_id = "ca-app-pub-3824185688302776/4118893272";
+        const string rewarded_id = "ca-app-pub-3824185688302776/8199838582";
 
         static RewardedAd rewardedAd;
         static Activity rewardedAdsActivity;

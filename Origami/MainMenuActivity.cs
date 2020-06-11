@@ -20,6 +20,20 @@ namespace Origami
         static bool music_enabled = true;
         static bool sfx_enabled = true;
 
+        protected override void OnPause()
+        {
+            base.OnPause();
+
+            audioPlayer.PauseAmbient();
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            audioPlayer.ResumeAmbient();
+        }
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             Window.AddFlags(WindowManagerFlags.Fullscreen);
