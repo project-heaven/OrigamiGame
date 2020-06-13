@@ -16,6 +16,25 @@ namespace Origami
 
         static int start_scroll_offset = -1;
 
+        static bool another_activity_entered = false;
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+
+            if (!another_activity_entered)
+                MainMenuActivity.audioPlayer.PauseAmbient();
+            else
+                another_activity_entered = true;
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            MainMenuActivity.audioPlayer.ResumeAmbient();
+        }
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             Instance = this;
@@ -46,7 +65,7 @@ namespace Origami
             var back_button = FindViewById<ImageButton>(Resource.Id.back_button);
 
             back_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
-            back_button.Click += (s, e) => { StartActivity(typeof(ChapterSelectActivity)); };
+            back_button.Click += (s, e) => { another_activity_entered = true; StartActivity(typeof(ChapterSelectActivity)); };
         }
 
         static int last_scroll;
@@ -92,6 +111,7 @@ namespace Origami
         {
             if(MainMenuActivity.Instance.core.GetLevelRating(level).unlocked)
             {
+                another_activity_entered = true;
                 StartActivity(typeof(GameActivity));
                 MainMenuActivity.Instance.core.SetLevel(level);
             }

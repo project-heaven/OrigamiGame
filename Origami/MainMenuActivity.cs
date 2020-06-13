@@ -2,9 +2,11 @@
 using Android.Content.PM;
 using Android.Content.Res;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Origami.Logics;
+using System;
 using System.IO;
 using Xamarin.Essentials;
 
@@ -20,11 +22,16 @@ namespace Origami
         static bool music_enabled = true;
         static bool sfx_enabled = true;
 
+        static bool another_activity_entered = false;
+
         protected override void OnPause()
         {
             base.OnPause();
 
-            audioPlayer.PauseAmbient();
+            if (!another_activity_entered)
+                MainMenuActivity.audioPlayer.PauseAmbient();
+            else
+                another_activity_entered = true;
         }
 
         protected override void OnResume()
@@ -37,7 +44,7 @@ namespace Origami
         protected override void OnCreate(Bundle savedInstanceState)
         {
             Window.AddFlags(WindowManagerFlags.Fullscreen);
-
+            
             base.OnCreate(savedInstanceState);
 
             Platform.Init(this, savedInstanceState);
@@ -77,8 +84,18 @@ namespace Origami
             start_button.Click += (s, e) => audioPlayer.PlayClick();
             about_button.Click += (s, e) => audioPlayer.PlayClick();
 
-            start_button.Click += (s, e) => StartActivity(typeof(ChapterSelectActivity));
-            about_button.Click += (s, e) => StartActivity(typeof(AboutActivity));
+            start_button.Click += (s, e) =>
+            {
+                another_activity_entered = true;
+                StartActivity(typeof(ChapterSelectActivity));
+                
+            };
+
+            about_button.Click += (s, e) =>
+            {
+                another_activity_entered = true;
+                StartActivity(typeof(AboutActivity));
+            };
 
             if (Instance != null)
                 return;

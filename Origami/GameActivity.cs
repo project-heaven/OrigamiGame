@@ -18,6 +18,25 @@ namespace Origami
 
         public const int DEFAULT_HINTS = 5;
 
+        static bool another_activity_entered = false;
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+
+            if (!another_activity_entered)
+                MainMenuActivity.audioPlayer.PauseAmbient();
+            else
+                another_activity_entered = true;
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            MainMenuActivity.audioPlayer.ResumeAmbient();
+        }
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             Instance = this;
@@ -46,7 +65,11 @@ namespace Origami
             undo_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
             restart_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
 
-            back_button.Click += (s, e) => StartActivity(typeof(LevelSelectActivity));
+            back_button.Click += (s, e) =>
+            {
+                another_activity_entered = true;
+                StartActivity(typeof(LevelSelectActivity));
+            };
             help_button.Click += (s, e) => Help();
             undo_button.Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().Undo();
             restart_button.Click += (s, e) => MainMenuActivity.Instance.core.CurrentLevel().ResetAndRefresh();
@@ -154,6 +177,7 @@ namespace Origami
             {
                 SetButtonsEnabled(true);
                 ((ViewGroup)lvl_fail_view.Parent).RemoveView(lvl_fail_view);
+                another_activity_entered = true;
                 StartActivity(typeof(LevelSelectActivity));
             };
 
@@ -235,6 +259,7 @@ namespace Origami
             {
                 SetButtonsEnabled(true);
                 ((ViewGroup)lvl_complete_view.Parent).RemoveView(lvl_complete_view);
+                another_activity_entered = true;
                 StartActivity(typeof(LevelSelectActivity));
             };
 
