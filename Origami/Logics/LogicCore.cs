@@ -86,6 +86,11 @@ namespace Origami.Logics
             return levels[current_level];
         }
 
+        public int CurrentLevelId()
+        {
+            return current_level;
+        }
+
         #if DEBUG
              public static Dictionary<int, int> level_folds_count = new Dictionary<int, int>();
         #endif

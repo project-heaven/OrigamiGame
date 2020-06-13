@@ -76,6 +76,15 @@ namespace Origami
 
             int hints = Preferences.Get("hints", DEFAULT_HINTS);
             FindViewById<TextView>(Resource.Id.help_count).Text = hints.ToString();
+
+            if(MainMenuActivity.Instance.core.CurrentLevelId() == 0)
+            {// Show tutorial
+                var tutorial_layout = FindViewById<AbsoluteLayout>(Resource.Id.tutorial_layout);
+                View tutorial_view = LayoutInflater.Inflate(Resource.Layout.modal_tutorual, tutorial_layout);
+                game_field.Touch += (s, e) => { 
+                    FindViewById<AbsoluteLayout>(Resource.Id.tutorial_layout).RemoveView(FindViewById<LinearLayout>(Resource.Id.tutorial)); 
+                };
+            }
         }
 
         public void Help()

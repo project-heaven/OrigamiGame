@@ -112,20 +112,28 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/game_field_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <AbsoluteLayout
+        android:id="@+id/tutorial_layout"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/game_field"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/game_field_layout"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-        />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/game_field"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+            />
+        </LinearLayout>
+    </AbsoluteLayout>
+
+    
 
     <LinearLayout
         android:paddingLeft="19dp"

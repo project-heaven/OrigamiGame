@@ -1,0 +1,27 @@
+﻿<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/tutorial">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Fold the sheet by dragging your finger"
+        android:textColor="@color/textColor"
+        android:fontFamily="@font/somatic_rounded"
+        android:gravity="center"
+        android:paddingHorizontal="100dp"
+    />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/arrow_tutorial"
+        android:tint="@color/iconColor"
+        android:scaleType="centerCrop"
+    />
+</LinearLayout>
