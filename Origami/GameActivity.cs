@@ -76,8 +76,10 @@ namespace Origami
 
             int hints = Preferences.Get("hints", DEFAULT_HINTS);
             FindViewById<TextView>(Resource.Id.help_count).Text = hints.ToString();
+            if(hints == 0)
+                FindViewById<ImageButton>(Resource.Id.help).SetImageResource(Resource.Drawable.ads);
 
-            if(MainMenuActivity.Instance.core.CurrentLevelId() == 0)
+            if (MainMenuActivity.Instance.core.CurrentLevelId() == 0)
             {// Show tutorial
                 var tutorial_layout = FindViewById<AbsoluteLayout>(Resource.Id.tutorial_layout);
                 View tutorial_view = LayoutInflater.Inflate(Resource.Layout.modal_tutorual, tutorial_layout);
@@ -91,39 +93,20 @@ namespace Origami
         {
             int hints = Preferences.Get("hints", DEFAULT_HINTS);
             if(hints == 0)
-                OpenNoHints();
+            {
+                Ads.ShowAds(this);
+                FindViewById<ImageButton>(Resource.Id.help).SetImageResource(Resource.Drawable.help);
+            }              
             else
             {
                 Preferences.Set("hints", --hints);
                 FindViewById<TextView>(Resource.Id.help_count).Text = hints.ToString();
+
+                if(hints == 0)
+                    FindViewById<ImageButton>(Resource.Id.help).SetImageResource(Resource.Drawable.ads);
+
                 MainMenuActivity.Instance.core.CurrentLevel().Help();
             }
-        }
-
-        void OpenNoHints()
-        {
-            View no_hints_view = LayoutInflater.Inflate(Resource.Layout.modal_no_hints, null);
-
-            var show_ads_button = no_hints_view.FindViewById<ImageButton>(Resource.Id.show_ads);
-
-            show_ads_button.Click += (s, e) => MainMenuActivity.audioPlayer.PlayClick();
-            show_ads_button.Click += (s, e) => Ads.ShowAds(this);
-
-            var display_info = DeviceDisplay.MainDisplayInfo;
-            AddContentView(no_hints_view, new ViewGroup.LayoutParams((int)display_info.Width, (int)display_info.Height));
-
-            SetButtonsEnabled(false);
-
-            no_hints_view.Click += (s, e) => CloseNoHints();
-        }
-
-        void CloseNoHints()
-        {
-            var no_hints_view = FindViewById<LinearLayout>(Resource.Id.no_hints);
-            if (no_hints_view != null)
-                (no_hints_view.Parent as ViewGroup).RemoveView(no_hints_view);
-
-            SetButtonsEnabled(true);
         }
 
         public enum RewardAdState
@@ -142,8 +125,6 @@ namespace Origami
                         { 
                             Toast.MakeText(this, "Failed to show ad. Try again later.", ToastLength.Short).Show();
 
-                            CloseNoHints();
-
                             break; 
                         }
                     case RewardAdState.LOADING: 
@@ -154,8 +135,6 @@ namespace Origami
                         }
                     case RewardAdState.REWARDED: 
                         {
-                            CloseNoHints();
-
                             int hints = Preferences.Get("hints", DEFAULT_HINTS);
                             FindViewById<TextView>(Resource.Id.help_count).Text = (++hints).ToString();
                             Preferences.Set("hints", hints);
@@ -206,6 +185,14 @@ namespace Origami
 
         public void LevelCompleted(int level, int stars, bool last_level)
         {
+            if(level == 0)
+            {
+                var tutorial_layout = FindViewById<AbsoluteLayout>(Resource.Id.tutorial_layout);
+                var tutorial = tutorial_layout.FindViewById<LinearLayout>(Resource.Id.tutorial);
+                if (tutorial != null)
+                    tutorial_layout.RemoveView(tutorial);
+            }
+
             interestial_counter++;
             if (interestial_counter >= interestial_rate)
             {
